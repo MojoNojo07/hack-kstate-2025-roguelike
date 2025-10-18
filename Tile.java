@@ -1,21 +1,29 @@
+
 public class Tile {
     private char character;
-    private int maxHp;
-    private int defense;
-    private int hp;
     private String color;
+    private int maxHp;
+    private int hp;
+    private int defense;
+    private int x;
+    private int y;
 
     /**
      * Represents a tile on the map
      * @param character the single character that will show on the board
+     * @param color the color of the tile
      * @param hp the hitpoints the tile has before it gets destroyed
      * @param defense subtracts from damage dealt to hp
+     * @param x the x location of the tile
+     * @param y the y location of the tile
      */
-    public Tile(char character, String color, int hp, int defense) {
+    public Tile(char character, String color, int hp, int defense, int x, int y) {
         this.character = character;
         this.maxHp = hp;
         this.defense = defense;
         this.color = color;
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -27,10 +35,26 @@ public class Tile {
     }
 
     /**
-     * Getter emthod to get the tile's color
+     * Getter method to get the tile's color
      * @return the tile's color
      */
     public String getColor() {
         return this.color;
+    }
+
+    /**
+     * Setter method to set the tile's character
+     * @param character the new character
+     */
+    public void setCharacter(char character) {
+        this.character = character;
+    }
+
+    /**
+     * Damages a tile (amount subtracted by defense)
+     * @param damage the amount of damage to deal
+     */
+    public void damage(int damage) {
+        this.hp -= Math.min(damage - defense, 0);
     }
 }
