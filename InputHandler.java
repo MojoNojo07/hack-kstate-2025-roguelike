@@ -10,7 +10,8 @@ public class InputHandler extends JFrame implements KeyListener {
     public JLabel mainGameArea;
     public String board;
     public Actor player;
-    InputHandler inputHandler;
+    public static String log;
+    private InputHandler inputHandler;
 
     InputHandler(Actor player){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,7 +24,8 @@ public class InputHandler extends JFrame implements KeyListener {
 
         this.player = player;
 
-        board = "";
+        this.board = "";
+        this.log = "";
         updateBoard();
     }
 
@@ -56,7 +58,10 @@ public class InputHandler extends JFrame implements KeyListener {
         System.out.print("\033[H\033[2J");
         updateBoard();
         System.out.println("\n===== KILL THE NECROMANCEO =====\n");
+        System.out.println("Goblin HP: " + player.getHp());
         System.out.println(board);
+        log = ("" + player.getX() + ", " + player.getY() + "\n");
+        System.out.println(log);
     }
 
     @Override
