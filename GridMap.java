@@ -23,10 +23,10 @@ public class GridMap {
         //TODO: add tile generation and such
     }
 
-    public char[][] getMapUI() {
+    public Tile[][] getMapUI() {
 
         // creates a new viewport ui
-        char[][] mapUI = new char[Constants.MAP_VIEW_X][Constants.MAP_VIEW_Y];
+        Tile[][] mapUI = new Tile[Constants.MAP_VIEW_X][Constants.MAP_VIEW_Y];
 
         //TODO CHANGE THISSSSSSSSSSSSSSSSS
         int playerX = 0;
@@ -39,7 +39,7 @@ public class GridMap {
         for (int x = 0; x < Constants.MAP_VIEW_X; x++) {
             for (int y = 0; y < Constants.MAP_VIEW_Y; y++) {
                 // gets the tile at the position and adds its character to the ui map
-                mapUI[x][y] = this.getTile(x, y).getCharacter();
+                mapUI[x][y] = this.getTile(x, y);
             }
         }
 
