@@ -34,11 +34,19 @@ public class Tile {
     }
 
     /**
-     * Getter emthod to get the tile's color
+     * Getter method to get the tile's color
      * @return the tile's color
      */
     public String getColor() {
         return this.color;
+    }
+
+    /**
+     * Setter method to set the tile's character
+     * @param character the new character
+     */
+    public void setCharacter(char character) {
+        this.character = character;
     }
 
     /**
