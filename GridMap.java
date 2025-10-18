@@ -110,8 +110,13 @@ public class GridMap {
      * @param newY
      */
     public void moveTile(int previousX, int previousY, int newX, int newY) {
-        int[] newCoordinates = this.getTileLocation(newX, newY);
-        int[] previousCoordinates = this.getTileLocation(previousX, previousY);
+        this.setTile(this.getTile(previousX, previousY), newX, newY);
+        this.setTile(null, previousX, previousY);
+    }
+
+    private void generateMap() {
+
+    }
 
         grid[newCoordinates[0]][newCoordinates[1]][newCoordinates[2]][newCoordinates[3]] = grid[previousCoordinates[0]][previousCoordinates[1]][previousCoordinates[2]][previousCoordinates[3]];
         grid[previousCoordinates[0]][previousCoordinates[1]][previousCoordinates[2]][previousCoordinates[3]] = null;
