@@ -1,50 +1,58 @@
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 
-public class Screen extends JFrame implements KeyListener {
+public class Screen extends JFrame {
 
-    private JLabel mainGameArea;
+    public JLabel mainGameArea;
+    public String board;
+    public int characterX;
+    public int characterY;
+    InputHandler inputHandler;
 
     Screen(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500, 500);
         this.setLayout(null);
-        this.addKeyListener(this);
         this.setVisible(true);
         this.setTitle("Kill the NecromanCEO");
 
         this.getContentPane().setBackground(Color.BLACK);
 
+        inputHandler = new InputHandler(this);
+        this.addKeyListener(inputHandler);
 
-        mainGameArea = new JLabel("true!!", SwingConstants.CENTER);
+
+        characterX = 2;
+        characterY = 3;
+
+        board = "";
+
+        mainGameArea = new JLabel(board, SwingConstants.CENTER);
         mainGameArea.setSize(500, 500);
         mainGameArea.setForeground(Color.WHITE);
-        mainGameArea.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
+        mainGameArea.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 24));
         this.add(mainGameArea);
+        this.updateBoard();
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        String message = "<html>key " + e.getKeyCode() + " pressed <br/>You sure did press that button!! </html>";
-        mainGameArea.setText(message);
-        System.out.println(message);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {  
-        System.out.println("key " + e.getKeyCode() + " released");
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        System.out.println("key " + e.getKeyCode() + " typed");
+    public void updateBoard() {
+        board = "";
+        int size = 5;
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
+                if (j == characterX && i == characterY) {
+                    board += "<font color='green'>G</font>";
+                } else {
+                    board += "<font color='white'>.</font>";
+                }
+            }
+            board += "<br>";
+        }
     }
     
 }
