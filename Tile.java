@@ -1,21 +1,28 @@
 public class Tile {
     private char character;
+    private String color;
     private int maxHp;
     private int defense;
     private int hp;
-    private String color;
+    private int x;
+    private int y;
 
     /**
      * Represents a tile on the map
      * @param character the single character that will show on the board
+     * @param color the color of the tile
      * @param hp the hitpoints the tile has before it gets destroyed
      * @param defense subtracts from damage dealt to hp
+     * @param x the x location of the tile
+     * @param y the y location of the tile
      */
-    public Tile(char character, String color, int hp, int defense) {
+    public Tile(char character, String color, int hp, int defense, int x, int y) {
         this.character = character;
         this.maxHp = hp;
         this.defense = defense;
         this.color = color;
+        this.x = x;
+        this.y = y;
     }
 
     /**
