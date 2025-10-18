@@ -15,4 +15,11 @@ public final class Constants {
         public static final int WINDOW_WALL_DEFENSE = 0;
     }
 
+    public static final int LARGEST_ROOM_X = 30;
+    public static final int SMALLEST_ROOM_X = 3;
+    public static final int LARGEST_ROOM_Y = 20;
+    // I believe this value must be at least 1 more than the x min
+    public static final int SMALLEST_ROOM_Y = 4;
+
+
 }

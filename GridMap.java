@@ -108,10 +108,10 @@ public class GridMap {
             }
         }
 
-        createRoom(1, 1);
-        createRoom(1, this.mapYMax - 20);
-        createRoom(this.mapYMax - 20, 1);
-        createRoom(this.mapXMax - 20, this.mapYMax - 20);
+        generateRooms(1, 1);
+        generateRooms(1, this.mapYMax - 20);
+        generateRooms(this.mapYMax - 20, 1);
+        generateRooms(this.mapXMax - 20, this.mapYMax - 20);
 
 
     }
@@ -139,17 +139,14 @@ public class GridMap {
      * @param x The starting top left x pos
      * @param y The starting top left y pos
      */
-    private void createRoom(int x, int y) {
+    private void generateRooms(int x, int y) {
         int n = random.nextInt(30 - 3 + 1) + 3;
         int m = Math.min(random.nextInt(n - 4 + 1) + 4, 20);
 
-        n = Math.min(x + n, this.mapXMax - 2);
-        m = Math.min(y + m, this.mapYMax - 2);
+        createRoom(x, y, n, m);
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                this.setTile(null, i + x, j + y);
-            }
-        }
+        
     }
+
+
 }
