@@ -43,6 +43,22 @@ public class Tile {
     }
 
     /**
+     * Getter method to get the tile's x coordinate
+     * @return the tile's x coordinate
+     */
+    public int getX() {
+        return this.x;
+    }
+
+    /**
+     * Getter method to get the tile's y coordinate
+     * @return the tile's y coordinate
+     */
+    public int getY() {
+        return this.y;
+    }
+
+    /**
      * Setter method to set the tile's character
      * @param character the new character
      */
