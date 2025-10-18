@@ -57,6 +57,10 @@ public class InputHandler extends JFrame implements KeyListener {
             player.attack(0, 1);
         } else if (keyCode == Constants.KeyBinds.ATK_LEFT) {
             player.attack(-1, 0);
+
+        // summon an office skeleton by pressing L, for testing
+        } else if (keyCode == 76){
+            Main.currentFloor.setTile(new Actor('O', "\u001B[34m", 20, 5), player.getX() + 1, player.getY());
         }
 
         // ASCII escape code, jumps to the next line
