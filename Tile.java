@@ -2,8 +2,8 @@ public class Tile {
     private char character;
     private String color;
     private int maxHp;
-    private int defense;
     private int hp;
+    private int defense;
     private int x;
     private int y;
 
@@ -39,5 +39,13 @@ public class Tile {
      */
     public String getColor() {
         return this.color;
+    }
+
+    /**
+     * Damages a tile (amount subtracted by defense)
+     * @param damage the amount of damage to deal
+     */
+    public void damage(int damage) {
+        this.hp -= Math.min(damage - defense, 0);
     }
 }
