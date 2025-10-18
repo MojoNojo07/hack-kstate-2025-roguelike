@@ -38,4 +38,19 @@ public class GridMap {
         return null;
     }
 
+    /**
+     * Returns a tile at the global coords
+     * @param x global coord x
+     * @param y global coord y
+     * @return the tile at the given location
+     */
+    private Tile getTile(int x, int y) {
+        int localX = x - x % Constants.CHUNK_SIZE;
+        int localY = y - y % Constants.CHUNK_SIZE;
+        int chunkX = (x - localX) / Constants.CHUNK_SIZE;
+        int chunkY = (y - localY) / Constants.CHUNK_SIZE;
+
+        return this.grid[chunkX][chunkY][localX][localY];
+    }
+
 }
