@@ -24,6 +24,18 @@ public final class Constants {
         public static final int MOVE_DOWN = 83;
         // 68 is the D key
         public static final int MOVE_RIGHT = 68;
+
+        // 38 is the up arrow key
+        public static final int ATK_UP = 38;
+        //37 is the left arrow key
+        public static final int ATK_LEFT = 37;
+        // 40 is the down arrow key
+        public static final int ATK_DOWN = 40;
+        // 39 is the right arrow key
+        public static final int ATK_RIGHT = 39;
+
+
+
     }
     public static final int LARGEST_ROOM_X = 30;
     public static final int SMALLEST_ROOM_X = 3;

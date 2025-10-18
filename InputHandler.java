@@ -49,6 +49,14 @@ public class InputHandler extends JFrame implements KeyListener {
             player.move(0, 1);
         } else if (keyCode == Constants.KeyBinds.MOVE_LEFT) {
             player.move(-1, 0);
+        } else if (keyCode == Constants.KeyBinds.ATK_UP) {
+            player.attack(0, -1);
+        } else if (keyCode == Constants.KeyBinds.ATK_RIGHT) {
+            player.attack(1, 0);
+        } else if (keyCode == Constants.KeyBinds.ATK_DOWN) {
+            player.attack(0, 1);
+        } else if (keyCode == Constants.KeyBinds.ATK_LEFT) {
+            player.attack(-1, 0);
         }
 
         // ASCII escape code, jumps to the next line

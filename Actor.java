@@ -1,7 +1,6 @@
 public class Actor extends Tile {
 
-    private int x;
-    private int y;
+    
 
      /**
       * Creates a new actor object
@@ -9,9 +8,7 @@ public class Actor extends Tile {
       * @param y the y location of the tile
       */
     public Actor(char character, String color, int hp, int defense, int x, int y) {
-        super(character, color, hp, defense);
-        this.x = x;
-        this.y = y;
+        super(character, color, hp, defense, x, y);
     }
 
     /**
@@ -28,19 +25,11 @@ public class Actor extends Tile {
 
     }
 
-    /**
-     * Getter method to get the tile's x coordinate
-     * @return the tile's x coordinate
-     */
-    public int getX() {
-        return this.x;
-    }
+    public void attack(int relX, int relY) {
+        Tile target = Main.currentFloor.getTile(this.x + relX, this.y + relY);
 
-    /**
-     * Getter method to get the tile's y coordinate
-     * @return the tile's y coordinate
-     */
-    public int getY() {
-        return this.y;
+        if (target != null) {
+            target.damage(15);
+        }
     }
 }
