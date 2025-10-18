@@ -113,7 +113,28 @@ public class GridMap {
         generateRooms(this.mapYMax - 20, 1, Constants.MAX_ROOMS_TO_GENERATE);
         generateRooms(this.mapXMax - 20, this.mapYMax - 20, Constants.MAX_ROOMS_TO_GENERATE);
 
+        // Places all wood and windowed walls.
+        for (int i = 0; i < this.mapXMax; i++) {
+            for (int j = 0; j < this.mapYMax; j++) {
 
+                // Finds the total of walls nearby in a 3x3 grid.
+                int total = 0;
+                for (int k = i - 1; k <= i + 1; k++) {
+                    for (int l = j - 1; l <= j + 1; l++) {
+                        if (this.getTile(k, l) instanceof Wall && (i != 0 || j != 0)) {
+                            total++;
+                        }
+                    }
+                }
+
+                if (total <= 3) {
+                    this.setTile(new Wall(' ', "light blue", Constants.Tiles.WINDOW_WALL_HP, Constants.Tiles.WINDOW_WALL_DEFENSE, '░'), i, j);
+                }
+                else if (total <= 7) {
+                    this.setTile(new Wall(' ', "beige", Constants.Tiles.WOOD_WALL_HP, Constants.Tiles.WOOD_WALL_DEFENSE, '█'), i, j);
+                }
+            }
+        }
     }
 
     /**
@@ -198,6 +219,4 @@ public class GridMap {
             }
         }
     }
-
-
 }
