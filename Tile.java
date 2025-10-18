@@ -25,6 +25,16 @@ public class Tile {
         this.y = y;
     }
 
+    public Tile(char character, String color, int hp, int defense) {
+        this.character = character;
+        this.color = color;
+        this.maxHp = hp;
+        this.hp = hp;
+        this.defense = defense;
+        this.x = -1;
+        this.y = -1;
+    }
+
     /**
      * Getter method to get the tile's hp
      * @return the tile's hp
