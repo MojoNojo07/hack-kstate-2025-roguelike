@@ -162,7 +162,12 @@ public class GridMap {
 
         createRoom(x, y, n, m);
 
-
+        int startingX = n / 2;
+        int startingY = m / 2;
+        
+        if (random.nextBoolean()) {
+            n = 0;
+        }
     }
 
 
