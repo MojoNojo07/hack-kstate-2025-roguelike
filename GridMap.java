@@ -25,6 +25,10 @@ public class GridMap {
         // this.generateMap();
     }
 
+    /**
+     * Generates a string block as a ui for the world
+     * @return the string
+     */
     public String getMapUI() {
 
         // creates a new viewport ui

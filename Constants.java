@@ -9,10 +9,13 @@ public final class Constants {
     public static class Tiles {
         public static final int WOOD_WALL_HP = 5;
         public static final int WOOD_WALL_DEFENSE = 4;
+        public static final String WOOD_WALL_COLOR = "\u001B[32m";
         public static final int CONCRETE_WALL_HP = 5;
         public static final int CONCRETE_WALL_DEFENSE = 9;
+        public static final String CONCRETE_WALL_COLOR = "\u001B[32m";
         public static final int WINDOW_WALL_HP = 2;
         public static final int WINDOW_WALL_DEFENSE = 0;
+        public static final String WINDOW_WALL_COLOR = "\u001B[32m";
     }
 
     public static class KeyBinds {
@@ -25,6 +28,7 @@ public final class Constants {
         // 68 is the D key
         public static final int MOVE_RIGHT = 68;
     }
+
     public static final int LARGEST_ROOM_X = 30;
     public static final int SMALLEST_ROOM_X = 3;
     public static final int LARGEST_ROOM_Y = 20;
@@ -33,6 +37,9 @@ public final class Constants {
 
     public static final int MAX_ROOMS_TO_GENERATE = 4;
     public static final int MAX_CORRIDOR_LENGTH = 16;
+
+
+    public static final String GOBLIN_COLOR = "\u001B[32m";
 
 
 }
