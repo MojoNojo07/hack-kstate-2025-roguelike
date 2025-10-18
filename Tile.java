@@ -1,6 +1,5 @@
 public class Tile {
-    private final char CHARACTER;
-
+    private char character;
     private int maxHp;
     private int defense;
     private int hp;
@@ -12,7 +11,7 @@ public class Tile {
      * @param defense subtracts from damage dealt to hp
      */
     public Tile(char character, int hp, int defense) {
-        this.CHARACTER = character;
+        this.character = character;
         this.maxHp = hp;
         this.defense = defense;
     }
@@ -22,6 +21,6 @@ public class Tile {
      * @return the tile's character
      */
     public char getCharacter() {
-        return this.CHARACTER;
+        return this.character;
     }
 }

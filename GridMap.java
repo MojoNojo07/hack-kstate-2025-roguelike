@@ -11,6 +11,11 @@ public class GridMap {
     private int mapXMax;
     private int mapYMax;
 
+    /**
+     * Constructor method for GridMap
+     * @param n the width of the chunks
+     * @param m the height of the chunks
+     */
     public GridMap(int n, int m) {
         this.grid = new Tile[n][m][Constants.CHUNK_SIZE][Constants.CHUNK_SIZE];
         this.mapXMax = n * Constants.CHUNK_SIZE;
@@ -20,6 +25,7 @@ public class GridMap {
 
     public char[][] getMapUI() {
 
+        // creates a new viewport ui
         char[][] mapUI = new char[Constants.MAP_VIEW_X][Constants.MAP_VIEW_Y];
 
         //TODO CHANGE THISSSSSSSSSSSSSSSSS
@@ -29,8 +35,10 @@ public class GridMap {
         int startX = Math.min(playerX - Constants.MAP_VIEW_X / 2, mapXMax - Constants.CHUNK_SIZE - 1);
         int startY = Math.min(playerY - Constants.MAP_VIEW_Y / 2, mapYMax - Constants.CHUNK_SIZE - 1);
 
+        // for every tile in the map view add it to the UI map
         for (int x = 0; x < Constants.MAP_VIEW_X; x++) {
             for (int y = 0; y < Constants.MAP_VIEW_Y; y++) {
+                // gets the tile at the position and adds its character to the ui map
                 mapUI[x][y] = this.getTile(x, y).getCharacter();
             }
         }
