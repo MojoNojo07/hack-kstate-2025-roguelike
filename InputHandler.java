@@ -34,7 +34,7 @@ public class InputHandler extends JFrame implements KeyListener {
 
 
     public void updateBoard() {
-        board = Main.currentFloor.getMapString();
+        board = Main.currentFloor.getMapUI();
     }
 
     @Override

@@ -22,43 +22,30 @@ public class GridMap {
         this.grid = new Tile[n][m][Constants.CHUNK_SIZE][Constants.CHUNK_SIZE];
         this.mapXMax = n * Constants.CHUNK_SIZE;
         this.mapYMax = m * Constants.CHUNK_SIZE;
-        this.generateMap();
+        // this.generateMap();
     }
 
-    public String getMapString() {
-        String board = "";
-        for(int y = 0; y < Constants.MAP_VIEW_Y; y++) {
-            for(int x = 0; x < Constants.MAP_VIEW_X; x++) {
-                Tile tile = this.getTile(x, y);
-                if (tile == null) {
-                    board += ".";
-                } else {
-                    board += tile.getColor() + tile.getCharacter() + "\u001B[0m";
-                }
-            }
-            board += "\n";
-        }
-        return board;
-    }
-
-    public Tile[][] getMapUI() {
+    public String getMapUI() {
 
         // creates a new viewport ui
-        Tile[][] mapUI = new Tile[Constants.MAP_VIEW_X][Constants.MAP_VIEW_Y];
+        String mapUI = "";
 
-        //TODO CHANGE THISSSSSSSSSSSSSSSSS
-        int playerX = 0;
-        int playerY = 0;
         // gets the top left corner of the viewport, making sure to clamp it to avoid OOB errors
-        int startX = Math.min(playerX - Constants.MAP_VIEW_X / 2, mapXMax - Constants.CHUNK_SIZE - 2);
-        int startY = Math.min(playerY - Constants.MAP_VIEW_Y / 2, mapYMax - Constants.CHUNK_SIZE - 2);
+        int startX = Math.max(Math.min(Main.player.getX() - Constants.MAP_VIEW_X / 2, mapXMax - Constants.CHUNK_SIZE - 2), 0);
+        int startY = Math.max(Math.min(Main.player.getY() - Constants.MAP_VIEW_Y / 2, mapYMax - Constants.CHUNK_SIZE - 2), 0);
 
         // for every tile in the map view add it to the UI map
-        for (int x = 0; x < Constants.MAP_VIEW_X; x++) {
-            for (int y = 0; y < Constants.MAP_VIEW_Y; y++) {
-                // gets the tile at the position and adds its character to the ui map
-                mapUI[x][y] = this.getTile(x, y);
+        for (int y = startY; y < Constants.MAP_VIEW_Y + startY; y++) {
+            for (int x = startX; x < Constants.MAP_VIEW_X + startX; x++) {
+                if (this.getTile(x, y) == null) {
+                    mapUI += ".";
+                }
+                else {
+                    mapUI += this.getTile(x, y).getCharacter();
+                    mapUI += this.getTile(x, y).getColor();
+                }
             }
+            mapUI += "\n";
         }
 
         return mapUI;
