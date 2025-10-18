@@ -1,10 +1,11 @@
-
 public class Tile {
     private char character;
     private String color;
     private int maxHp;
     private int hp;
     private int defense;
+    protected int x;
+    protected int y;
 
     /**
      * Represents a tile on the map
@@ -14,12 +15,14 @@ public class Tile {
      * @param defense subtracts from damage dealt to hp
 
      */
-    public Tile(char character, String color, int hp, int defense) {
+    public Tile(char character, String color, int hp, int defense, int x, int y) {
         this.character = character;
         this.color = color;
         this.maxHp = hp;
+        this.hp = hp;
         this.defense = defense;
-        
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -54,11 +57,38 @@ public class Tile {
         this.character = character;
     }
 
+    public void slay() {
+        System.out.println(this.character + " at " + this.x + ", " + this.y + " was slain!");
+        Main.currentFloor.setTile(null, this.x, this.y);
+    }
+
     /**
      * Damages a tile (amount subtracted by defense)
      * @param damage the amount of damage to deal
      */
     public void damage(int damage) {
-        this.hp -= Math.min(damage - defense, 0);
+        System.out.println(this.character + " is at " + this.hp + " HP");
+        this.hp -= Math.max(damage - this.defense, 0);
+        System.out.println(this.character + " at " + this.x + ", " + this.y + " was hit for " + damage + " damage, HP " + this.hp);
+
+        if (this.hp <= 0) {
+            this.slay();
+        }
+    }
+
+    /**
+     * Getter method to get the tile's x coordinate
+     * @return the tile's x coordinate
+     */
+    public int getX() {
+        return this.x;
+    }
+
+    /**
+     * Getter method to get the tile's y coordinate
+     * @return the tile's y coordinate
+     */
+    public int getY() {
+        return this.y;
     }
 }
