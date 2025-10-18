@@ -26,25 +26,25 @@ public class Screen extends JFrame implements KeyListener {
         mainGameArea = new JLabel("true!!", SwingConstants.CENTER);
         mainGameArea.setSize(500, 500);
         mainGameArea.setForeground(Color.WHITE);
-        mainGameArea.setFont(new Font("Bebas Neue", Font.PLAIN, 24));
+        mainGameArea.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 24));
         this.add(mainGameArea);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        String message = "<html>key " + e.getKeyCode() + " pressed <br/>You sure did press that button!! </html>";
-        mainGameArea.setText(message);
+        String message = "key " + e.getKeyCode() + " pressed";
+        mainGameArea.setText("<html>" + message + "<br/>You sure did press that button!! </html>");
         System.out.println(message);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {  
-        System.out.println("key " + e.getKeyCode() + " released");
+        // nothin 
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        System.out.println("key " + e.getKeyCode() + " typed");
+        // nothin
     }
     
 }
