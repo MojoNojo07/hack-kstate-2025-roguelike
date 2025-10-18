@@ -22,7 +22,7 @@ public class GridMap {
         this.grid = new Tile[n][m][Constants.CHUNK_SIZE][Constants.CHUNK_SIZE];
         this.mapXMax = n * Constants.CHUNK_SIZE;
         this.mapYMax = m * Constants.CHUNK_SIZE;
-        //TODO: add tile generation and such
+        this.generateMap();
     }
 
     public Tile[][] getMapUI() {
