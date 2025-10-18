@@ -45,8 +45,9 @@ public class GridMap {
                     mapUI += ".";
                 }
                 else {
-                    mapUI += this.getTile(x, y).getCharacter();
                     mapUI += this.getTile(x, y).getColor();
+                    mapUI += this.getTile(x, y).getCharacter();
+                    mapUI += "\u001B[0m";
                 }
             }
             mapUI += "\n";
