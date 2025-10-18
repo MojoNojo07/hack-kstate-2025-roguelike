@@ -57,13 +57,13 @@ public class InputHandler extends JFrame implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         System.out.println("keycode " + keyCode);
-        if (keyCode == 87) {
+        if (keyCode == Constants.KeyBinds.MOVE_UP) {
             this.characterY--;
-        } else if (keyCode == 68) {
+        } else if (keyCode == Constants.KeyBinds.MOVE_RIGHT) {
             this.characterX++;
-        } else if (keyCode == 83) {
+        } else if (keyCode == Constants.KeyBinds.MOVE_DOWN) {
             this.characterY++;
-        } else if (keyCode == 65) {
+        } else if (keyCode == Constants.KeyBinds.MOVE_LEFT) {
             this.characterX--;
         }
 
