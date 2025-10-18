@@ -18,9 +18,9 @@ public class GridMap {
         //TODO: add tile generation and such
     }
 
-    public String[][] getMapUI() {
+    public char[][] getMapUI() {
 
-        String[][] mapUI = new String[Constants.MAP_VIEW_X][Constants.MAP_VIEW_Y];
+        char[][] mapUI = new char[Constants.MAP_VIEW_X][Constants.MAP_VIEW_Y];
 
         //TODO CHANGE THISSSSSSSSSSSSSSSSS
         int playerX = 0;
@@ -31,11 +31,11 @@ public class GridMap {
 
         for (int x = 0; x < Constants.MAP_VIEW_X; x++) {
             for (int y = 0; y < Constants.MAP_VIEW_Y; y++) {
-                //pass for now
+                mapUI[x][y] = this.getTile(x, y).getCharacter();
             }
         }
 
-        return null;
+        return mapUI;
     }
 
     /**
