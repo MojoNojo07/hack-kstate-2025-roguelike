@@ -23,6 +23,23 @@ public class GridMap {
         //TODO: add tile generation and such
     }
 
+    public String getMapString() {
+        String board = "";
+        for(int y = 0; y < Constants.MAP_VIEW_Y; y++) {
+            for(int x = 0; x < Constants.MAP_VIEW_X; x++) {
+                Tile tile = this.getTile(x, y);
+                if (tile == null) {
+                    board += ".";
+                } else {
+                    board += tile.getCharacter();
+                    System.out.println("found something at " + x + ", " + y);
+                }
+            }
+            board += "\n";
+        }
+        return board;
+    }
+
     public Tile[][] getMapUI() {
 
         // creates a new viewport ui
@@ -65,8 +82,8 @@ public class GridMap {
      * @return an int array, with the following coordinates: chunk x, chunk y, local x, local y (in order)
      */
     private int[] getTileLocation(int x, int y) {
-        int localX = x - x % Constants.CHUNK_SIZE;
-        int localY = y - y % Constants.CHUNK_SIZE;
+        int localX = x % Constants.CHUNK_SIZE;
+        int localY = y % Constants.CHUNK_SIZE;
         int chunkX = (x - localX) / Constants.CHUNK_SIZE;
         int chunkY = (y - localY) / Constants.CHUNK_SIZE;
 
