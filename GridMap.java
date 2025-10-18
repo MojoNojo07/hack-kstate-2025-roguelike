@@ -86,6 +86,12 @@ public class GridMap {
      */
     public void setTile(Tile tile, int x, int y) {
         int[] coordinates = this.getTileLocation(x, y);
+        if (tile instanceof Tile){
+            if (tile.x < 0 || tile.y < 0) {
+                tile.x = x;
+                tile.y = y;
+            }
+        }
         this.grid[coordinates[0]][coordinates[1]][coordinates[2]][coordinates[3]] = tile;
     }
     

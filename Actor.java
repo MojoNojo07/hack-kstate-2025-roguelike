@@ -11,6 +11,10 @@ public class Actor extends Tile {
         super(character, color, hp, defense, x, y);
     }
 
+    public Actor(char character, String color, int hp, int defense) {
+        super(character, color, hp, defense, -1, -1);
+    }
+
     /**
      * Attempts to move the player character in the direction inputted. Stops from collision.
      * @param x how much to move in the x direction
