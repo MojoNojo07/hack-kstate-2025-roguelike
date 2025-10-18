@@ -19,9 +19,9 @@ public class Tile {
      */
     public Tile(char character, String color, int hp, int defense, int x, int y) {
         this.character = character;
+        this.color = color;
         this.maxHp = hp;
         this.defense = defense;
-        this.color = color;
         this.x = x;
         this.y = y;
     }

@@ -52,7 +52,7 @@ public class GridMap {
      * @param y global coord y
      * @return the tile at the given location
      */
-    private Tile getTile(int x, int y) {
+    public Tile getTile(int x, int y) {
         int localX = x - x % Constants.CHUNK_SIZE;
         int localY = y - y % Constants.CHUNK_SIZE;
         int chunkX = (x - localX) / Constants.CHUNK_SIZE;
