@@ -53,12 +53,28 @@ public class GridMap {
      * @return the tile at the given location
      */
     public Tile getTile(int x, int y) {
+        
+        int[] coordinates = this.getTileLocation(x, y)
+        return this.grid[coordinates[0]][coordinates[1]][coordinates[2]][coordinates[3]];
+    }
+
+    /**
+     * Private method to get the local coordinate location of a tile
+     * @param x glocal coord x
+     * @param y global coord y
+     * @return an int array, with the following coordinates: chunk x, chunk y, local x, local y (in order)
+     */
+    private int[] getTileLocation(int x, int y) {
         int localX = x - x % Constants.CHUNK_SIZE;
         int localY = y - y % Constants.CHUNK_SIZE;
         int chunkX = (x - localX) / Constants.CHUNK_SIZE;
         int chunkY = (y - localY) / Constants.CHUNK_SIZE;
 
-        return this.grid[chunkX][chunkY][localX][localY];
+        int[] coordinates = {chunkX, chunkY, localX, localY};
+        return coordinates;
     }
 
+    public void moveTile(int previousX, int previousY, int newX, int newY) {
+        this.grid[]
+    }
 }
