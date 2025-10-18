@@ -108,10 +108,10 @@ public class GridMap {
             }
         }
 
-        generateRooms(1, 1);
-        generateRooms(1, this.mapYMax - 20);
-        generateRooms(this.mapYMax - 20, 1);
-        generateRooms(this.mapXMax - 20, this.mapYMax - 20);
+        generateRooms(1, 1, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(1, this.mapYMax - 20, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(this.mapYMax - 20, 1, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(this.mapXMax - 20, this.mapYMax - 20, Constants.MAX_ROOMS_TO_GENERATE);
 
 
     }
@@ -120,8 +120,8 @@ public class GridMap {
      * Creates a room.
      * @param x The starting top left x pos
      * @param y The starting top left y pos
-     * @param n the width (inclusive)
-     * @param m the height (inclusive)
+     * @param n The width (inclusive)
+     * @param m The height (inclusive)
      */
     private void createRoom(int x, int y, int n, int m) {
         n = Math.min(x + n, this.mapXMax - 2);
@@ -135,21 +135,67 @@ public class GridMap {
     }
 
     /**
-     * Creates a room.
+     * Recursively generates new rooms for the map
      * @param x The starting top left x pos
      * @param y The starting top left y pos
+     * @param iterations The number of iterations before it will stop
      */
-    private void generateRooms(int x, int y) {
-        int n = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
-        int m = random.nextInt(Constants.LARGEST_ROOM_Y - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
+    private void generateRooms(int x, int y, int iterations) {
 
-        createRoom(x, y, n, m);
+        // Stops recursing if it's recursed too many times.
+        if (iterations != 0) {
 
-        int startingX = n / 2;
-        int startingY = m / 2;
-        
-        if (random.nextBoolean()) {
-            n = 0;
+            // Generates random numbers for a new room
+            int n = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
+            int m = random.nextInt(Constants.LARGEST_ROOM_Y - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
+
+            createRoom(x, y, n, m);
+
+            // Grabs a random starting point from within the room
+            int startingX = random.nextInt((x + n) - x + 1) + x;
+            int startingY = random.nextInt((y + m) - y + 1) + y;
+
+            int[] direction = {0, 0};
+            
+            // Determines where to go with the new corridor
+            if (random.nextBoolean()) {
+                if (startingX - x > x) {
+                    direction[0] = 1;
+                }
+                else {
+                    direction[0] = -1;
+                }
+
+                startingX = x + n;
+            }
+            else {
+                if (startingY - y > y) {
+                    direction[1] = 1;
+                }
+                else {
+                    direction[1] = -1;
+                }
+
+                startingY = y + m;
+            }
+
+            // Creates corridors through the map, stops if it has found empty space
+            for (int i = 0; i < Constants.MAX_CORRIDOR_LENGTH; i++) {
+
+                // Breaks if it has found open space
+                if (this.getTile(x, y) == null) {
+                    break;
+                }
+
+                this.setTile(null, x, y);
+                x += direction[0];
+                y += direction[1];
+            }
+
+            // Generates a new room if the current position is not empty
+            if (this.getTile(x, y) != null) {
+                generateRooms(x, y, iterations - 1);
+            }
         }
     }
 
