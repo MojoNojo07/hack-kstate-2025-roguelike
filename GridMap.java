@@ -74,7 +74,18 @@ public class GridMap {
         return coordinates;
     }
 
+    /**
+     * Moves a tile into a new location, leaving old tile null
+     * @param previousX
+     * @param previousY
+     * @param newX
+     * @param newY
+     */
     public void moveTile(int previousX, int previousY, int newX, int newY) {
-        this.grid[]
+        int[] newCoordinates = this.getTileLocation(newX, newY);
+        int[] previousCoordinates = this.getTileLocation(previousX, previousY);
+
+        grid[newCoordinates[0]][newCoordinates[1]][newCoordinates[2]][newCoordinates[3]] = grid[previousCoordinates[0]][previousCoordinates[1]][previousCoordinates[2]][previousCoordinates[3]];
+        grid[previousCoordinates[0]][previousCoordinates[1]][previousCoordinates[2]][previousCoordinates[3]] = null;
     }
 }
