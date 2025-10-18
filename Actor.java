@@ -47,20 +47,4 @@ public class Actor extends Tile {
     public int getY() {
         return this.y;
     }
-
-    /**
-     * Getter method to get the tile's x coordinate
-     * @return the tile's x coordinate
-     */
-    public int getX() {
-        return this.x;
-    }
-
-    /**
-     * Getter method to get the tile's y coordinate
-     * @return the tile's y coordinate
-     */
-    public int getY() {
-        return this.y;
-    }
 }
