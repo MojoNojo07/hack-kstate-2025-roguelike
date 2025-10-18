@@ -24,14 +24,18 @@ public class GridMap {
         // this.generateMap();
     }
 
+    /**
+     * Generates a string block as a ui for the world
+     * @return the string
+     */
     public String getMapUI() {
 
         // creates a new viewport ui
         String mapUI = "";
 
         // gets the top left corner of the viewport, making sure to clamp it to avoid OOB errors
-        int startX = Math.max(Math.min(Main.player.getX() - Constants.MAP_VIEW_X / 2, mapXMax - Constants.CHUNK_SIZE - 2), 0);
-        int startY = Math.max(Math.min(Main.player.getY() - Constants.MAP_VIEW_Y / 2, mapYMax - Constants.CHUNK_SIZE - 2), 0);
+        int startX = Math.max(Math.min(Main.player.getX() - Constants.MAP_VIEW_X / 2, mapXMax - Constants.MAP_VIEW_X), 0);
+        int startY = Math.max(Math.min(Main.player.getY() - Constants.MAP_VIEW_Y / 2 - 2, mapYMax - Constants.MAP_VIEW_Y), 0);
 
         // for every tile in the map view add it to the UI map
         for (int y = startY; y < Constants.MAP_VIEW_Y + startY; y++) {
@@ -40,8 +44,9 @@ public class GridMap {
                     mapUI += ".";
                 }
                 else {
-                    mapUI += this.getTile(x, y).getCharacter();
                     mapUI += this.getTile(x, y).getColor();
+                    mapUI += this.getTile(x, y).getCharacter();
+                    mapUI += "\u001B[0m";
                 }
             }
             mapUI += "\n";
@@ -106,7 +111,7 @@ public class GridMap {
         // Sets all tiles to concrete walls.
         for (int i = 0; i < this.mapXMax; i++) {
             for (int j = 0; j < this.mapYMax; j++) {
-                this.setTile(new Wall('█', "grey", Constants.Tiles.CONCRETE_WALL_HP, Constants.Tiles.CONCRETE_WALL_DEFENSE, '█'), i, j);
+                this.setTile(new Wall('█', "grey", Constants.Tiles.CONCRETE_WALL_HP, Constants.Tiles.CONCRETE_WALL_DEFENSE, '█', i, j), i, j);
             }
         }
 
@@ -130,10 +135,10 @@ public class GridMap {
                 }
 
                 if (total <= 3) {
-                    this.setTile(new Wall('░', "light blue", Constants.Tiles.WINDOW_WALL_HP, Constants.Tiles.WINDOW_WALL_DEFENSE, '░'), i, j);
+                    this.setTile(new Wall('░', "light blue", Constants.Tiles.WINDOW_WALL_HP, Constants.Tiles.WINDOW_WALL_DEFENSE, '░', i, j), i, j);
                 }
                 else if (total <= 7) {
-                    this.setTile(new Wall('█', "beige", Constants.Tiles.WOOD_WALL_HP, Constants.Tiles.WOOD_WALL_DEFENSE, '█'), i, j);
+                    this.setTile(new Wall('█', "beige", Constants.Tiles.WOOD_WALL_HP, Constants.Tiles.WOOD_WALL_DEFENSE, '█', i, j), i, j);
                 }
             }
         }
