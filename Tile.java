@@ -23,6 +23,14 @@ public class Tile {
     }
 
     /**
+     * Getter method to get the tile's hp
+     * @return the tile's hp
+     */
+    public int getHp() {
+        return this.hp;
+    }
+
+    /**
      * Getter method to get the tile's character
      * @return the tile's character
      */
