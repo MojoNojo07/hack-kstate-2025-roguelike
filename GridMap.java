@@ -104,7 +104,7 @@ public class GridMap {
         // Sets all tiles to concrete walls.
         for (int i = 0; i < this.mapXMax; i++) {
             for (int j = 0; j < this.mapYMax; j++) {
-                this.setTile(new Wall(' ', "grey", Constants.Tiles.CONCRETE_WALL_HP, Constants.Tiles.CONCRETE_WALL_DEFENSE, '█'), i, j);
+                this.setTile(new Wall('█', "grey", Constants.Tiles.CONCRETE_WALL_HP, Constants.Tiles.CONCRETE_WALL_DEFENSE, '█'), i, j);
             }
         }
 
@@ -128,10 +128,10 @@ public class GridMap {
                 }
 
                 if (total <= 3) {
-                    this.setTile(new Wall(' ', "light blue", Constants.Tiles.WINDOW_WALL_HP, Constants.Tiles.WINDOW_WALL_DEFENSE, '░'), i, j);
+                    this.setTile(new Wall('░', "light blue", Constants.Tiles.WINDOW_WALL_HP, Constants.Tiles.WINDOW_WALL_DEFENSE, '░'), i, j);
                 }
                 else if (total <= 7) {
-                    this.setTile(new Wall(' ', "beige", Constants.Tiles.WOOD_WALL_HP, Constants.Tiles.WOOD_WALL_DEFENSE, '█'), i, j);
+                    this.setTile(new Wall('█', "beige", Constants.Tiles.WOOD_WALL_HP, Constants.Tiles.WOOD_WALL_DEFENSE, '█'), i, j);
                 }
             }
         }
