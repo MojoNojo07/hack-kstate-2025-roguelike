@@ -22,10 +22,13 @@ public class InputHandler implements KeyListener {
         } else if (keyCode == 65) {
             screen.characterX--;
         }
-        String message = "key " + e.getKeyCode() + " pressed";
+
+        // ASCII escape code, jumps to the next line
+        // bc java can't clear the terminal. for some reason.
+        System.out.print("\033[H\033[2J");
         screen.updateBoard();
-        screen.mainGameArea.setText("<html>" + screen.board + "</html>");
-        System.out.println(message);
+        System.out.println("\n===== KILL THE NECROMANCEO =====\n");
+        System.out.println(screen.board);
     }
 
     @Override

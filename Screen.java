@@ -1,9 +1,7 @@
 import java.awt.Color;
-import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 
 public class Screen extends JFrame {
@@ -16,7 +14,7 @@ public class Screen extends JFrame {
 
     Screen(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(500, 500);
+        this.setSize(10, 10);
         this.setLayout(null);
         this.setVisible(true);
         this.setTitle("Kill the NecromanCEO");
@@ -31,14 +29,14 @@ public class Screen extends JFrame {
         characterY = 3;
 
         board = "";
-
-        mainGameArea = new JLabel(board, SwingConstants.CENTER);
-        mainGameArea.setSize(500, 500);
-        mainGameArea.setForeground(Color.WHITE);
-        mainGameArea.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 24));
-        this.add(mainGameArea);
         this.updateBoard();
     }
+
+    public void clearScreen() {  
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }  
+
 
     public void updateBoard() {
         board = "";
@@ -46,12 +44,12 @@ public class Screen extends JFrame {
         for(int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
                 if (j == characterX && i == characterY) {
-                    board += "<font color='green'>G</font>";
+                    board += "\u001B[32mG\u001B[0m";
                 } else {
-                    board += "<font color='white'>.</font>";
+                    board += ".";
                 }
             }
-            board += "<br>";
+            board += "\n";
         }
     }
     
