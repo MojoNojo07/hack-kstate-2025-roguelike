@@ -5,6 +5,8 @@ public class Pathfinder {
      * @param otherTile the tile to go to
      * @return an array of the x and y of where to go. Values of -1, 0, or 1.
      */
+
+    // Checks which of the two values (x vs y) are greater, then sets that direction to 1 or -1.
     public final static int[] findPath(Tile tile, Tile otherTile) {
 
         int x = 0;
