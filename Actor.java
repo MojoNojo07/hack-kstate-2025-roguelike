@@ -30,7 +30,6 @@ public class Actor extends Tile {
             this.y += y;
         }
 
-        System.out.println("Actor now at position " + this.x + ", " + this.y);
     }
 
     /**
