@@ -33,8 +33,7 @@ public class GridMap {
                 if (tile == null) {
                     board += ".";
                 } else {
-                    board += tile.getCharacter();
-                    System.out.println("found something at " + x + ", " + y);
+                    board += tile.getColor() + tile.getCharacter() + "\u001B[0m";
                 }
             }
             board += "\n";

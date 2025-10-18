@@ -20,17 +20,32 @@ public class Actor extends Tile {
      * @param y how much to move in the y direction
      */
     public void move(int x, int y) {
-        for (int i = Math.abs(x); i > 0; i--) {
-            if (Main.currentFloor.getTile(x + x / Math.abs(x), 0) == null) {
-                Main.currentFloor.moveTile(x, y, x + x / Math.abs(x), 0);
-            }
+        if (Main.currentFloor.getTile(this.x + x, this.y) == null) {
+            Main.currentFloor.moveTile(this.x, this.y, this.x + x, this.y);
+            this.x += x;
         }
 
-        for (int i = Math.abs(y); i > 0; i--) {
-            if (Main.currentFloor.getTile(0, y + y / Math.abs(y)) == null) {
-                Main.currentFloor.moveTile(x, y, 0, y + y / Math.abs(y));
-            }
+        if (Main.currentFloor.getTile(this.x, this.y + y) == null) {
+            Main.currentFloor.moveTile(this.x, this.y, this.x, this.y + y);
+            this.y += y;
         }
+
+    }
+
+    /**
+     * Getter method to get the tile's x coordinate
+     * @return the tile's x coordinate
+     */
+    public int getX() {
+        return this.x;
+    }
+
+    /**
+     * Getter method to get the tile's y coordinate
+     * @return the tile's y coordinate
+     */
+    public int getY() {
+        return this.y;
     }
 
     /**
