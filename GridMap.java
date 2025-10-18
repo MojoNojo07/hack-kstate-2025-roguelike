@@ -49,8 +49,8 @@ public class GridMap {
         int playerX = 0;
         int playerY = 0;
         // gets the top left corner of the viewport, making sure to clamp it to avoid OOB errors
-        int startX = Math.min(playerX - Constants.MAP_VIEW_X / 2, mapXMax - Constants.CHUNK_SIZE - 1);
-        int startY = Math.min(playerY - Constants.MAP_VIEW_Y / 2, mapYMax - Constants.CHUNK_SIZE - 1);
+        int startX = Math.min(playerX - Constants.MAP_VIEW_X / 2, mapXMax - Constants.CHUNK_SIZE - 2);
+        int startY = Math.min(playerY - Constants.MAP_VIEW_Y / 2, mapYMax - Constants.CHUNK_SIZE - 2);
 
         // for every tile in the map view add it to the UI map
         for (int x = 0; x < Constants.MAP_VIEW_X; x++) {
@@ -91,6 +91,17 @@ public class GridMap {
         return coordinates;
     }
 
+    /**
+     * Sets a tile at a specified location
+     * @param tile the new tile
+     * @param x glocal coord x
+     * @param y global coord y
+     */
+    public void setTile(Tile tile, int x, int y) {
+        int[] coordinates = this.getTileLocation(x, y);
+        this.grid[coordinates[0]][coordinates[1]][coordinates[2]][coordinates[3]] = tile;
+    }
+    
     /**
      * Moves a tile into a new location, leaving old tile null
      * @param previousX
