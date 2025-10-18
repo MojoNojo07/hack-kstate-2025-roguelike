@@ -140,12 +140,12 @@ public class GridMap {
      * @param y The starting top left y pos
      */
     private void generateRooms(int x, int y) {
-        int n = random.nextInt(30 - 3 + 1) + 3;
-        int m = Math.min(random.nextInt(n - 4 + 1) + 4, 20);
+        int n = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
+        int m = random.nextInt(Constants.LARGEST_ROOM_Y - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
 
         createRoom(x, y, n, m);
 
-        
+
     }
 
 
