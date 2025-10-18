@@ -37,6 +37,7 @@ public class Screen extends JFrame {
         mainGameArea.setForeground(Color.WHITE);
         mainGameArea.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 24));
         this.add(mainGameArea);
+        this.updateBoard();
     }
 
     public void updateBoard() {
@@ -45,9 +46,9 @@ public class Screen extends JFrame {
         for(int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
                 if (j == characterX && i == characterY) {
-                    board += "G";
+                    board += "<font color='green'>G</font>";
                 } else {
-                    board += ".";
+                    board += "<font color='white'>.</font>";
                 }
             }
             board += "<br>";
