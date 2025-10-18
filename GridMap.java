@@ -21,43 +21,30 @@ public class GridMap {
         this.grid = new Tile[n][m][Constants.CHUNK_SIZE][Constants.CHUNK_SIZE];
         this.mapXMax = n * Constants.CHUNK_SIZE;
         this.mapYMax = m * Constants.CHUNK_SIZE;
-        //TODO: add tile generation and such
+        // this.generateMap();
     }
 
-    public String getMapString() {
-        String board = "";
-        for(int y = 0; y < Constants.MAP_VIEW_Y; y++) {
-            for(int x = 0; x < Constants.MAP_VIEW_X; x++) {
-                Tile tile = this.getTile(x, y);
-                if (tile == null) {
-                    board += ".";
-                } else {
-                    board += tile.getColor() + tile.getCharacter() + "\u001B[0m";
-                }
-            }
-            board += "\n";
-        }
-        return board;
-    }
-
-    public Tile[][] getMapUI() {
+    public String getMapUI() {
 
         // creates a new viewport ui
-        Tile[][] mapUI = new Tile[Constants.MAP_VIEW_X][Constants.MAP_VIEW_Y];
+        String mapUI = "";
 
-        //TODO CHANGE THISSSSSSSSSSSSSSSSS
-        int playerX = 0;
-        int playerY = 0;
         // gets the top left corner of the viewport, making sure to clamp it to avoid OOB errors
-        int startX = Math.min(playerX - Constants.MAP_VIEW_X / 2, mapXMax - Constants.CHUNK_SIZE - 2);
-        int startY = Math.min(playerY - Constants.MAP_VIEW_Y / 2, mapYMax - Constants.CHUNK_SIZE - 2);
+        int startX = Math.max(Math.min(Main.player.getX() - Constants.MAP_VIEW_X / 2, mapXMax - Constants.CHUNK_SIZE - 2), 0);
+        int startY = Math.max(Math.min(Main.player.getY() - Constants.MAP_VIEW_Y / 2, mapYMax - Constants.CHUNK_SIZE - 2), 0);
 
         // for every tile in the map view add it to the UI map
-        for (int x = 0; x < Constants.MAP_VIEW_X; x++) {
-            for (int y = 0; y < Constants.MAP_VIEW_Y; y++) {
-                // gets the tile at the position and adds its character to the ui map
-                mapUI[x][y] = this.getTile(x, y);
+        for (int y = startY; y < Constants.MAP_VIEW_Y + startY; y++) {
+            for (int x = startX; x < Constants.MAP_VIEW_X + startX; x++) {
+                if (this.getTile(x, y) == null) {
+                    mapUI += ".";
+                }
+                else {
+                    mapUI += this.getTile(x, y).getCharacter();
+                    mapUI += this.getTile(x, y).getColor();
+                }
             }
+            mapUI += "\n";
         }
 
         return mapUI;
@@ -119,24 +106,45 @@ public class GridMap {
         // Sets all tiles to concrete walls.
         for (int i = 0; i < this.mapXMax; i++) {
             for (int j = 0; j < this.mapYMax; j++) {
-                this.setTile(new Wall(' ', "grey", Constants.Tiles.CONCRETE_WALL_HP, Constants.Tiles.CONCRETE_WALL_DEFENSE, '█'), i, j);
+                this.setTile(new Wall('█', "grey", Constants.Tiles.CONCRETE_WALL_HP, Constants.Tiles.CONCRETE_WALL_DEFENSE, '█'), i, j);
             }
         }
 
-        generateRooms(1, 1);
-        generateRooms(1, this.mapYMax - 20);
-        generateRooms(this.mapYMax - 20, 1);
-        generateRooms(this.mapXMax - 20, this.mapYMax - 20);
+        generateRooms(1, 1, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(1, this.mapYMax - 20, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(this.mapYMax - 20, 1, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(this.mapXMax - 20, this.mapYMax - 20, Constants.MAX_ROOMS_TO_GENERATE);
 
+        // Places all wood and windowed walls.
+        for (int i = 0; i < this.mapXMax; i++) {
+            for (int j = 0; j < this.mapYMax; j++) {
 
+                // Finds the total of walls nearby in a 3x3 grid.
+                int total = 0;
+                for (int k = i - 1; k <= i + 1; k++) {
+                    for (int l = j - 1; l <= j + 1; l++) {
+                        if (this.getTile(k, l) instanceof Wall && (i != 0 || j != 0)) {
+                            total++;
+                        }
+                    }
+                }
+
+                if (total <= 3) {
+                    this.setTile(new Wall('░', "light blue", Constants.Tiles.WINDOW_WALL_HP, Constants.Tiles.WINDOW_WALL_DEFENSE, '░'), i, j);
+                }
+                else if (total <= 7) {
+                    this.setTile(new Wall('█', "beige", Constants.Tiles.WOOD_WALL_HP, Constants.Tiles.WOOD_WALL_DEFENSE, '█'), i, j);
+                }
+            }
+        }
     }
 
     /**
      * Creates a room.
      * @param x The starting top left x pos
      * @param y The starting top left y pos
-     * @param n the width (inclusive)
-     * @param m the height (inclusive)
+     * @param n The width (inclusive)
+     * @param m The height (inclusive)
      */
     private void createRoom(int x, int y, int n, int m) {
         n = Math.min(x + n, this.mapXMax - 2);
@@ -150,23 +158,67 @@ public class GridMap {
     }
 
     /**
-     * Creates a room.
+     * Recursively generates new rooms for the map
      * @param x The starting top left x pos
      * @param y The starting top left y pos
+     * @param iterations The number of iterations before it will stop
      */
-    private void generateRooms(int x, int y) {
-        int n = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
-        int m = random.nextInt(Constants.LARGEST_ROOM_Y - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
+    private void generateRooms(int x, int y, int iterations) {
 
-        createRoom(x, y, n, m);
+        // Stops recursing if it's recursed too many times.
+        if (iterations != 0) {
 
-        int startingX = n / 2;
-        int startingY = m / 2;
-        
-        if (random.nextBoolean()) {
-            n = 0;
+            // Generates random numbers for a new room
+            int n = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
+            int m = random.nextInt(Constants.LARGEST_ROOM_Y - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
+
+            createRoom(x, y, n, m);
+
+            // Grabs a random starting point from within the room
+            int startingX = random.nextInt((x + n) - x + 1) + x;
+            int startingY = random.nextInt((y + m) - y + 1) + y;
+
+            int[] direction = {0, 0};
+            
+            // Determines where to go with the new corridor
+            if (random.nextBoolean()) {
+                if (startingX - x > x) {
+                    direction[0] = 1;
+                }
+                else {
+                    direction[0] = -1;
+                }
+
+                startingX = x + n;
+            }
+            else {
+                if (startingY - y > y) {
+                    direction[1] = 1;
+                }
+                else {
+                    direction[1] = -1;
+                }
+
+                startingY = y + m;
+            }
+
+            // Creates corridors through the map, stops if it has found empty space
+            for (int i = 0; i < Constants.MAX_CORRIDOR_LENGTH; i++) {
+
+                // Breaks if it has found open space
+                if (this.getTile(x, y) == null) {
+                    break;
+                }
+
+                this.setTile(null, x, y);
+                x += direction[0];
+                y += direction[1];
+            }
+
+            // Generates a new room if the current position is not empty
+            if (this.getTile(x, y) != null) {
+                generateRooms(x, y, iterations - 1);
+            }
         }
     }
-
-
 }

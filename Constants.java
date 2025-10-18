@@ -43,5 +43,8 @@ public final class Constants {
     // I believe this value must be at least 1 more than the x min
     public static final int SMALLEST_ROOM_Y = 4;
 
+    public static final int MAX_ROOMS_TO_GENERATE = 4;
+    public static final int MAX_CORRIDOR_LENGTH = 16;
+
 
 }
