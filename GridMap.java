@@ -25,6 +25,23 @@ public class GridMap {
         //TODO: add tile generation and such
     }
 
+    public String getMapString() {
+        String board = "";
+        for(int y = 0; y < Constants.MAP_VIEW_Y; y++) {
+            for(int x = 0; x < Constants.MAP_VIEW_X; x++) {
+                Tile tile = this.getTile(x, y);
+                if (tile == null) {
+                    board += ".";
+                } else {
+                    board += tile.getCharacter();
+                    System.out.println("found something at " + x + ", " + y);
+                }
+            }
+            board += "\n";
+        }
+        return board;
+    }
+
     public Tile[][] getMapUI() {
 
         // creates a new viewport ui
