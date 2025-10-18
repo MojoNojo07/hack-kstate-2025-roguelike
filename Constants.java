@@ -15,6 +15,16 @@ public final class Constants {
         public static final int WINDOW_WALL_DEFENSE = 0;
     }
 
+    public static class KeyBinds {
+        // 87 is the W key
+        public static final int MOVE_UP = 87;
+        // 65 is the A key
+        public static final int MOVE_LEFT = 65;
+        // 83 is the S key
+        public static final int MOVE_DOWN = 83;
+        // 68 is the D key
+        public static final int MOVE_RIGHT = 68;
+    }
     public static final int LARGEST_ROOM_X = 30;
     public static final int SMALLEST_ROOM_X = 3;
     public static final int LARGEST_ROOM_Y = 20;

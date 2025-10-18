@@ -9,23 +9,19 @@ public class InputHandler extends JFrame implements KeyListener {
 
     public JLabel mainGameArea;
     public String board;
-    public int characterX;
-    public int characterY;
+    public Actor player;
     InputHandler inputHandler;
 
-    InputHandler(){
+    InputHandler(Actor player){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(100, 100);
         this.setLayout(null);
         this.setVisible(true);
         this.setTitle("Kill the NecromanCEO");
-
         this.getContentPane().setBackground(Color.BLACK);
         this.addKeyListener(this);
 
-
-        characterX = 0;
-        characterY = 0;
+        this.player = player;
 
         board = "";
         updateBoard();
@@ -38,33 +34,21 @@ public class InputHandler extends JFrame implements KeyListener {
 
 
     public void updateBoard() {
-        board = "";
-        int sizeX = 20;
-        int sizeY = 80;
-        for(int i = 0; i < sizeX; i++) {
-            for(int j = 0; j < sizeY; j++) {
-                if (j == characterX && i == characterY) {
-                    board += "\u001B[32mG\u001B[0m";
-                } else {
-                    board += ".";
-                }
-            }
-            board += "\n";
-        }
+        board = Main.currentFloor.getMapString();
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         System.out.println("keycode " + keyCode);
-        if (keyCode == 87) {
-            this.characterY--;
-        } else if (keyCode == 68) {
-            this.characterX++;
-        } else if (keyCode == 83) {
-            this.characterY++;
-        } else if (keyCode == 65) {
-            this.characterX--;
+        if (keyCode == Constants.KeyBinds.MOVE_UP) {
+            player.move(0, -1);
+        } else if (keyCode == Constants.KeyBinds.MOVE_RIGHT) {
+            player.move(1, 0);
+        } else if (keyCode == Constants.KeyBinds.MOVE_DOWN) {
+            player.move(0, 1);
+        } else if (keyCode == Constants.KeyBinds.MOVE_LEFT) {
+            player.move(-1, 0);
         }
 
         // ASCII escape code, jumps to the next line
