@@ -6,7 +6,7 @@ This is a project made for Hack K-State 2025. It's a text-based roguelike about 
 ✅ Taking keyboard input<br/>
 ✅ Persistent updating text in the ~~terminal~~ game window<br/>
 ✅ Moving a character around on-screen<br/>
-🔲 Collision<br/>
+✅ Collision<br/>
 🔲 Connected rooms<br/>
 🔲 NPC enemies<br/>
 🔲 Simple weapons<br/>
