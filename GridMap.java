@@ -54,7 +54,7 @@ public class GridMap {
      */
     public Tile getTile(int x, int y) {
         
-        int[] coordinates = this.getTileLocation(x, y)
+        int[] coordinates = this.getTileLocation(x, y);
         return this.grid[coordinates[0]][coordinates[1]][coordinates[2]][coordinates[3]];
     }
 
