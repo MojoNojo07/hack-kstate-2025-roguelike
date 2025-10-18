@@ -3,8 +3,8 @@ public class Wall extends Tile {
 
     private char defaultCharacter;
 
-    public Wall(char character, String color, int hp, int defense, char defaultCharacter) {
-        super(character, color, hp, defense);
+    public Wall(char character, String color, int hp, int defense, char defaultCharacter, int x, int y) {
+        super(character, color, hp, defense, x, y);
         this.defaultCharacter = defaultCharacter;
     }
 
