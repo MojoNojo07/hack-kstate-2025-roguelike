@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.lang.Math;
+import java.util.Random;
 
 /**
  * A grid for the level map
@@ -10,6 +11,7 @@ public class GridMap {
     private Tile[][][][] grid;
     private int mapXMax;
     private int mapYMax;
+    private Random random = new Random();
 
     /**
      * Constructor method for GridMap
@@ -49,8 +51,8 @@ public class GridMap {
         int playerX = 0;
         int playerY = 0;
         // gets the top left corner of the viewport, making sure to clamp it to avoid OOB errors
-        int startX = Math.min(playerX - Constants.MAP_VIEW_X / 2, mapXMax - Constants.CHUNK_SIZE - 1);
-        int startY = Math.min(playerY - Constants.MAP_VIEW_Y / 2, mapYMax - Constants.CHUNK_SIZE - 1);
+        int startX = Math.min(playerX - Constants.MAP_VIEW_X / 2, mapXMax - Constants.CHUNK_SIZE - 2);
+        int startY = Math.min(playerY - Constants.MAP_VIEW_Y / 2, mapYMax - Constants.CHUNK_SIZE - 2);
 
         // for every tile in the map view add it to the UI map
         for (int x = 0; x < Constants.MAP_VIEW_X; x++) {
@@ -92,6 +94,17 @@ public class GridMap {
     }
 
     /**
+     * Sets a tile at a specified location
+     * @param tile the new tile
+     * @param x glocal coord x
+     * @param y global coord y
+     */
+    public void setTile(Tile tile, int x, int y) {
+        int[] coordinates = this.getTileLocation(x, y);
+        this.grid[coordinates[0]][coordinates[1]][coordinates[2]][coordinates[3]] = tile;
+    }
+    
+    /**
      * Moves a tile into a new location, leaving old tile null
      * @param previousX
      * @param previousY
@@ -99,10 +112,63 @@ public class GridMap {
      * @param newY
      */
     public void moveTile(int previousX, int previousY, int newX, int newY) {
-        int[] newCoordinates = this.getTileLocation(newX, newY);
-        int[] previousCoordinates = this.getTileLocation(previousX, previousY);
-
-        grid[newCoordinates[0]][newCoordinates[1]][newCoordinates[2]][newCoordinates[3]] = grid[previousCoordinates[0]][previousCoordinates[1]][previousCoordinates[2]][previousCoordinates[3]];
-        grid[previousCoordinates[0]][previousCoordinates[1]][previousCoordinates[2]][previousCoordinates[3]] = null;
+        this.setTile(this.getTile(previousX, previousY), newX, newY);
+        this.setTile(null, previousX, previousY);
     }
+
+    private void generateMap() {
+
+        // Sets all tiles to concrete walls.
+        for (int i = 0; i < this.mapXMax; i++) {
+            for (int j = 0; j < this.mapYMax; j++) {
+                this.setTile(new Wall(' ', "grey", Constants.Tiles.CONCRETE_WALL_HP, Constants.Tiles.CONCRETE_WALL_DEFENSE, '█'), i, j);
+            }
+        }
+
+        generateRooms(1, 1);
+        generateRooms(1, this.mapYMax - 20);
+        generateRooms(this.mapYMax - 20, 1);
+        generateRooms(this.mapXMax - 20, this.mapYMax - 20);
+
+
+    }
+
+    /**
+     * Creates a room.
+     * @param x The starting top left x pos
+     * @param y The starting top left y pos
+     * @param n the width (inclusive)
+     * @param m the height (inclusive)
+     */
+    private void createRoom(int x, int y, int n, int m) {
+        n = Math.min(x + n, this.mapXMax - 2);
+        m = Math.min(y + m, this.mapYMax - 2);
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                this.setTile(null, i + x, j + y);
+            }
+        }
+    }
+
+    /**
+     * Creates a room.
+     * @param x The starting top left x pos
+     * @param y The starting top left y pos
+     */
+    private void generateRooms(int x, int y) {
+        int n = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
+        int m = random.nextInt(Constants.LARGEST_ROOM_Y - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
+
+        createRoom(x, y, n, m);
+
+        int startingX = n / 2;
+        int startingY = m / 2;
+        
+        if (random.nextBoolean()) {
+            n = 0;
+        }
+    }
+
+
 }

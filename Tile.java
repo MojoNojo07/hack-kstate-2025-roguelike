@@ -5,8 +5,6 @@ public class Tile {
     private int maxHp;
     private int hp;
     private int defense;
-    private int x;
-    private int y;
 
     /**
      * Represents a tile on the map
@@ -14,16 +12,14 @@ public class Tile {
      * @param color the color of the tile
      * @param hp the hitpoints the tile has before it gets destroyed
      * @param defense subtracts from damage dealt to hp
-     * @param x the x location of the tile
-     * @param y the y location of the tile
+
      */
-    public Tile(char character, String color, int hp, int defense, int x, int y) {
+    public Tile(char character, String color, int hp, int defense) {
         this.character = character;
         this.color = color;
         this.maxHp = hp;
         this.defense = defense;
-        this.x = x;
-        this.y = y;
+        
     }
 
     /**
@@ -40,22 +36,6 @@ public class Tile {
      */
     public String getColor() {
         return this.color;
-    }
-
-    /**
-     * Getter method to get the tile's x coordinate
-     * @return the tile's x coordinate
-     */
-    public int getX() {
-        return this.x;
-    }
-
-    /**
-     * Getter method to get the tile's y coordinate
-     * @return the tile's y coordinate
-     */
-    public int getY() {
-        return this.y;
     }
 
     /**
