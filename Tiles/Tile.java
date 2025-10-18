@@ -1,3 +1,4 @@
+package Tiles;
 public class Tile {
     private char character;
     private String color;

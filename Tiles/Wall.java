@@ -1,3 +1,4 @@
+package Tiles;
 public class Wall extends Tile {
 
     private char defaultCharacter;

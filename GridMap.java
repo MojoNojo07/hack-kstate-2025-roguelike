@@ -1,4 +1,7 @@
 import java.util.Arrays;
+
+import Tiles.Tile;
+
 import java.lang.Math;
 
 /**
