@@ -118,7 +118,21 @@ public class GridMap {
 
     }
 
-        grid[newCoordinates[0]][newCoordinates[1]][newCoordinates[2]][newCoordinates[3]] = grid[previousCoordinates[0]][previousCoordinates[1]][previousCoordinates[2]][previousCoordinates[3]];
-        grid[previousCoordinates[0]][previousCoordinates[1]][previousCoordinates[2]][previousCoordinates[3]] = null;
+    /**
+     * Creates a room.
+     * @param x The starting top left x pos
+     * @param y The starting top left y pos
+     * @param n the width (inclusive)
+     * @param m the height (inclusive)
+     */
+    private void createRoom(int x, int y, int n, int m) {
+        n = Math.min(x + n, this.mapXMax - 2);
+        m = Math.min(y + m, this.mapYMax - 2);
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                this.setTile(null, i + x, j + y);
+            }
+        }
     }
 }
