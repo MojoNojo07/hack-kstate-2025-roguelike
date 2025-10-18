@@ -52,13 +52,40 @@ public class GridMap {
      * @param y global coord y
      * @return the tile at the given location
      */
-    private Tile getTile(int x, int y) {
+    public Tile getTile(int x, int y) {
+        
+        int[] coordinates = this.getTileLocation(x, y);
+        return this.grid[coordinates[0]][coordinates[1]][coordinates[2]][coordinates[3]];
+    }
+
+    /**
+     * Private method to get the local coordinate location of a tile
+     * @param x glocal coord x
+     * @param y global coord y
+     * @return an int array, with the following coordinates: chunk x, chunk y, local x, local y (in order)
+     */
+    private int[] getTileLocation(int x, int y) {
         int localX = x - x % Constants.CHUNK_SIZE;
         int localY = y - y % Constants.CHUNK_SIZE;
         int chunkX = (x - localX) / Constants.CHUNK_SIZE;
         int chunkY = (y - localY) / Constants.CHUNK_SIZE;
 
-        return this.grid[chunkX][chunkY][localX][localY];
+        int[] coordinates = {chunkX, chunkY, localX, localY};
+        return coordinates;
     }
 
+    /**
+     * Moves a tile into a new location, leaving old tile null
+     * @param previousX
+     * @param previousY
+     * @param newX
+     * @param newY
+     */
+    public void moveTile(int previousX, int previousY, int newX, int newY) {
+        int[] newCoordinates = this.getTileLocation(newX, newY);
+        int[] previousCoordinates = this.getTileLocation(previousX, previousY);
+
+        grid[newCoordinates[0]][newCoordinates[1]][newCoordinates[2]][newCoordinates[3]] = grid[previousCoordinates[0]][previousCoordinates[1]][previousCoordinates[2]][previousCoordinates[3]];
+        grid[previousCoordinates[0]][previousCoordinates[1]][previousCoordinates[2]][previousCoordinates[3]] = null;
+    }
 }
