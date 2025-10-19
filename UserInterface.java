@@ -10,10 +10,12 @@ public class UserInterface {
         System.out.print("\033[H\033[2J");
         System.out.println("\n  ===== KILL THE NECROMANCEO =====\n");
         System.out.print("Coffee: \u001B[37m[\u001B[33m");
-        for (int i = 0; i < Main.player.getHp(); i++) {System.out.print("▓");}
+        for (int i = 0; i < Main.player.getHp(); i++) {System.out.print("▒");}
         System.out.println("\u001B[37m]\u001B[0m");
         System.out.println(Main.currentFloor.getMapUI());
-        System.out.println(log);
+        for (int i = 0; i < log.length; i++) {
+            if (log[i] != null) {System.out.println(log[i]);}
+        }
     }
 
     /**

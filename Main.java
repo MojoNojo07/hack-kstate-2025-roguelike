@@ -4,7 +4,7 @@ class Main {
     public static Actor player = new Actor('G', Constants.GOBLIN_COLOR, 10, 2, 3, 4);
 
     public static void main(String args[]) {
-        currentFloor.addActor(player, 3, 4);
+        currentFloor.addActor(player, 2, 2);
 
         Tile wall = new Tile('X', "\u001B[40m", 10, 20, 10, 10);
 
