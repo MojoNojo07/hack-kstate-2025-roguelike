@@ -300,4 +300,17 @@ public class GridMap {
             }
         }
     }
+
+    public void populateEnemies() {
+        // Places all enemy units
+        for (int i = 0; i < this.mapXMax; i++) {
+            for (int j = 0; j < this.mapYMax; j++) {
+                if (this.getTile(i, j) == null) {
+                    if (random.nextInt(100 - 1 + 1) + 1 == 5) {
+                        this.addEnemy(new Enemy('O', "\u001B[34m", 20, 5), i, j);
+                    }
+                }
+            }
+        }
+    }
 }
