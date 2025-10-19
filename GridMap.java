@@ -116,9 +116,9 @@ public class GridMap {
         }
 
         generateRooms(1, 1, Constants.MAX_ROOMS_TO_GENERATE);
-        generateRooms(1, this.mapYMax - 20, Constants.MAX_ROOMS_TO_GENERATE);
-        generateRooms(this.mapYMax - 20, 1, Constants.MAX_ROOMS_TO_GENERATE);
-        generateRooms(this.mapXMax - 20, this.mapYMax - 20, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(1, this.mapYMax - 10, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(this.mapXMax - 10, 1, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(this.mapXMax - 10, this.mapYMax - 10, Constants.MAX_ROOMS_TO_GENERATE);
 
         // Places all wood and windowed walls.
         for (int i = 0; i < this.mapXMax; i++) {
@@ -142,7 +142,7 @@ public class GridMap {
                     if (total <= 3) {
                         this.setTile(new Wall('░', Constants.Tiles.WINDOW_WALL_COLOR, Constants.Tiles.WINDOW_WALL_HP, Constants.Tiles.WINDOW_WALL_DEFENSE, '░', i, j), i, j);
                     }
-                    else if (total <= 7) {
+                    else if (total <= 8) {
                         this.setTile(new Wall('█', Constants.Tiles.WOOD_WALL_COLOR, Constants.Tiles.WOOD_WALL_HP, Constants.Tiles.WOOD_WALL_DEFENSE, '█', i, j), i, j);
                     }
                 }
@@ -158,8 +158,8 @@ public class GridMap {
      * @param height The height (inclusive)
      */
     private void createRoom(int x, int y, int width, int height) {
-        width = Math.min(x + width, this.mapXMax - 2);
-        height = Math.min(y + height, this.mapYMax - 2);
+        width = Math.min(x + width, this.mapXMax - 1);
+        height = Math.min(y + height, this.mapYMax - 1);
 
         for (int i = x; i < width; i++) {
             for (int j = y; j < height; j++) {
@@ -182,9 +182,22 @@ public class GridMap {
             // Generates random numbers for a new room
             int width = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
             int height = random.nextInt(Math.max(Constants.LARGEST_ROOM_Y, width) - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
-            System.out.println("width: " + width + ", height: " + height);
+            width = Math.min(width, this.mapXMax - x - 1);
+            height = Math.min(height, this.mapYMax - y - 1);
 
-            createRoom(x, y, width, height);
+            // Reduces room size to accomadate other rooms
+            while (this.getTile(width + x, height + y) == null || this.getTile(width + x, 0) == null || this.getTile(0, height + y) == null) {
+                width -= 1;
+                height -= 1;
+
+                if (width <= 0 || height <= 0) {
+                    break;
+                }
+            }
+
+            if (width > 0 && height > 0) {
+                createRoom(x, y, width, height);
+            }
 
             // Grabs a random starting point from within the room
             int startingX = random.nextInt((x + width) - x + 1) + x;
@@ -194,42 +207,51 @@ public class GridMap {
             
             // Determines where to go with the new corridor
             if (random.nextBoolean()) {
-                if (startingX - x > x) {
+                if (startingX < this.mapXMax / 2) {
                     direction[0] = 1;
+                    startingX = x + width;
                 }
                 else {
                     direction[0] = -1;
+                    startingX = x;
                 }
-
-                startingX = x + width;
             }
             else {
-                if (startingY - y > y) {
+                if (startingY < this.mapYMax / 2) {
                     direction[1] = 1;
+                    startingY = y + height;
                 }
                 else {
                     direction[1] = -1;
+                    startingY = y;
                 }
-
-                startingY = y + height;
             }
+
+            x = startingX;
+            y = startingY;
 
             // Creates corridors through the map, stops if it has found empty space
             for (int i = 0; i < Constants.MAX_CORRIDOR_LENGTH; i++) {
 
-                // Breaks if it has found open space
-                if (this.getTile(x, y) == null) {
-                    break;
+                if (!(x <= -1 || x >= this.mapXMax || y <= -1 || y >= this.mapYMax)) {
+                    this.setTile(null, x, y);
+                    x += direction[0];
+                    y += direction[1];
                 }
 
-                this.setTile(null, x, y);
-                x += direction[0];
-                y += direction[1];
+                if (!(x <= -1 || x >= this.mapXMax || y <= -1 || y >= this.mapYMax)) {
+                    // Breaks if it has found open space
+                    if (this.getTile(x, y) == null) {
+                        break;
+                    }
+                }
             }
 
             // Generates a new room if the current position is not empty
-            if (this.getTile(x, y) != null) {
-                generateRooms(x, y, iterations - 1);
+            if (!(x <= -1 || x >= this.mapXMax || y <= -1 || y >= this.mapYMax)) {
+                if (this.getTile(x, y) != null) {
+                    generateRooms(x, y, iterations - 1);
+                }
             }
         }
     }
