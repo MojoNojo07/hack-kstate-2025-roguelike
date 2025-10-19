@@ -315,6 +315,11 @@ public class GridMap {
                         this.setTile(new LootBox('D', "\u001B[31m\u001B[43m", 1, 1, i, j), i, j);
                     }
                 }
+                if (this.getTile(i, j) == null) {
+                    if (random.nextInt(100 - 1 + 1) + 1 == 5) {
+                        this.setTile(new FilingCabinet('F', "\u001B[47m\u001B[31m", 1, 1, i, j), i, j);
+                    }
+                }
             }
         }
 
