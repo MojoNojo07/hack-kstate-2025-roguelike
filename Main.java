@@ -1,4 +1,3 @@
-
 class Main {
     public static final GridMap currentFloor = new GridMap(3, 3);
     public static Actor player = new Actor('G', Constants.GOBLIN_COLOR, 10, 2, 2, 2);
