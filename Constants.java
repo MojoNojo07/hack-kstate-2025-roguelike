@@ -55,5 +55,10 @@ public final class Constants {
 
     public static final int LOG_DEPTH = 5;
 
+    public static class Player {
+        public static final int STARTING_DEFENSE = 2;
+        public static final int STARTING_MAX_HP = 10;
+    }
+
 
 }
