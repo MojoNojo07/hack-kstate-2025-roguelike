@@ -80,11 +80,10 @@ public class InputHandler extends JFrame implements KeyListener {
         System.out.print("\033[H\033[2J");
         updateBoard();
         System.out.println("\n===== KILL THE NECROMANCEO =====\n");
-        System.out.println("Goblin HP: " + player.getHp() + "           Turn: " + Main.turn);
+        System.out.println("Goblin HP: " + player.getHp());
         System.out.println(board);
         log = ("" + player.getX() + ", " + player.getY() + "\n");
         System.out.println(log);
-        Main.turn++;
     }
 
     @Override
