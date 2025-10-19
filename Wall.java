@@ -17,7 +17,6 @@ public class Wall extends Tile {
 
     @Override
     public void slay() {
-        System.out.println("Wall was destroyed!");
         Main.currentFloor.setTile(null, this.x, this.y);
         Main.currentFloor.actors.remove(this.id - 1);
     }

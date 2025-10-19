@@ -96,9 +96,7 @@ public class Tile {
      * @param damage the amount of damage to deal
      */
     public void damage(int damage) {
-        System.out.println(this.character + " is at " + this.hp + " HP");
         this.hp -= Math.max(damage - this.defense, 0);
-        System.out.println(this.character + " at " + this.x + ", " + this.y + " was hit for " + damage + " damage, HP " + this.hp);
 
         if (this.hp <= 0) {
             this.slay();
