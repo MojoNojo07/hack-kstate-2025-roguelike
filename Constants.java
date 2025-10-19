@@ -9,13 +9,13 @@ public final class Constants {
     public static class Tiles {
         public static final int WOOD_WALL_HP = 5;
         public static final int WOOD_WALL_DEFENSE = 4;
-        public static final String WOOD_WALL_COLOR = "\u001B[34m";
+        public static final String WOOD_WALL_COLOR = "\u001B[37m";
         public static final int CONCRETE_WALL_HP = 5;
         public static final int CONCRETE_WALL_DEFENSE = 9;
-        public static final String CONCRETE_WALL_COLOR = "\u001B[32m";
+        public static final String CONCRETE_WALL_COLOR = "\u001B[35m";
         public static final int WINDOW_WALL_HP = 2;
         public static final int WINDOW_WALL_DEFENSE = 0;
-        public static final String WINDOW_WALL_COLOR = "\u001B[32m";
+        public static final String WINDOW_WALL_COLOR = "\u001B[34m";
     }
 
     public static class KeyBinds {
