@@ -21,9 +21,10 @@ public class GridMap {
      * @param m the height of the chunks
      */
     public GridMap(int n, int m) {
-        this.grid = new Tile[n][m][Constants.CHUNK_SIZE][Constants.CHUNK_SIZE];
-        this.mapXMax = n * Constants.CHUNK_SIZE;
-        this.mapYMax = m * Constants.CHUNK_SIZE;
+        this.grid = new Tile[m][n][Constants.CHUNK_SIZE][Constants.CHUNK_SIZE];
+        this.mapXMax = m * Constants.CHUNK_SIZE;
+        this.mapYMax = n * Constants.CHUNK_SIZE;
+        this.generateMap();
         this.actors = new HashMap<Integer, Actor>();
         this.enemies = new HashMap<Integer, Enemy>();
         // this.generateMap();
@@ -145,34 +146,40 @@ public class GridMap {
         // Sets all tiles to concrete walls.
         for (int i = 0; i < this.mapXMax; i++) {
             for (int j = 0; j < this.mapYMax; j++) {
-                this.setTile(new Wall('█', "grey", Constants.Tiles.CONCRETE_WALL_HP, Constants.Tiles.CONCRETE_WALL_DEFENSE, '█', i, j), i, j);
+                this.setTile(new Wall('█', Constants.Tiles.CONCRETE_WALL_COLOR, Constants.Tiles.CONCRETE_WALL_HP, Constants.Tiles.CONCRETE_WALL_DEFENSE, '█', i, j), i, j);
             }
         }
 
         generateRooms(1, 1, Constants.MAX_ROOMS_TO_GENERATE);
-        generateRooms(1, this.mapYMax - 20, Constants.MAX_ROOMS_TO_GENERATE);
-        generateRooms(this.mapYMax - 20, 1, Constants.MAX_ROOMS_TO_GENERATE);
-        generateRooms(this.mapXMax - 20, this.mapYMax - 20, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(1, this.mapYMax - 10, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(this.mapXMax - 10, 1, Constants.MAX_ROOMS_TO_GENERATE);
+        generateRooms(this.mapXMax - 10, this.mapYMax - 10, Constants.MAX_ROOMS_TO_GENERATE);
 
         // Places all wood and windowed walls.
         for (int i = 0; i < this.mapXMax; i++) {
             for (int j = 0; j < this.mapYMax; j++) {
 
-                // Finds the total of walls nearby in a 3x3 grid.
-                int total = 0;
-                for (int k = i - 1; k <= i + 1; k++) {
-                    for (int l = j - 1; l <= j + 1; l++) {
-                        if (this.getTile(k, l) instanceof Wall && (i != 0 || j != 0)) {
-                            total++;
+
+                if (this.getTile(i, j) != null) {
+
+                    // Finds the total of walls nearby in a 3x3 grid.
+                    int total = 0;
+                    for (int k = i - 1; k <= i + 1; k++) {
+                        for (int l = j - 1; l <= j + 1; l++) {
+                            if (k != -1 && k != this.mapXMax && l != -1 && l != this.mapYMax) {
+                                if (this.getTile(k, l) instanceof Wall && (i != 0 || j != 0)) {
+                                    total++;
+                                }
+                            }
                         }
                     }
-                }
 
-                if (total <= 3) {
-                    this.setTile(new Wall('░', "light blue", Constants.Tiles.WINDOW_WALL_HP, Constants.Tiles.WINDOW_WALL_DEFENSE, '░', i, j), i, j);
-                }
-                else if (total <= 7) {
-                    this.setTile(new Wall('█', "beige", Constants.Tiles.WOOD_WALL_HP, Constants.Tiles.WOOD_WALL_DEFENSE, '█', i, j), i, j);
+                    if (total <= 3) {
+                        this.setTile(new Wall('░', Constants.Tiles.WINDOW_WALL_COLOR, Constants.Tiles.WINDOW_WALL_HP, Constants.Tiles.WINDOW_WALL_DEFENSE, '░', i, j), i, j);
+                    }
+                    else if (total <= 8) {
+                        this.setTile(new Wall('█', Constants.Tiles.WOOD_WALL_COLOR, Constants.Tiles.WOOD_WALL_HP, Constants.Tiles.WOOD_WALL_DEFENSE, '█', i, j), i, j);
+                    }
                 }
             }
         }
@@ -182,16 +189,16 @@ public class GridMap {
      * Creates a room.
      * @param x The starting top left x pos
      * @param y The starting top left y pos
-     * @param n The width (inclusive)
-     * @param m The height (inclusive)
+     * @param width The width (inclusive)
+     * @param height The height (inclusive)
      */
-    private void createRoom(int x, int y, int n, int m) {
-        n = Math.min(x + n, this.mapXMax - 2);
-        m = Math.min(y + m, this.mapYMax - 2);
+    private void createRoom(int x, int y, int width, int height) {
+        width = Math.min(x + width, this.mapXMax - 1);
+        height = Math.min(y + height, this.mapYMax - 1);
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                this.setTile(null, i + x, j + y);
+        for (int i = x; i < width; i++) {
+            for (int j = y; j < height; j++) {
+                this.setTile(null, i, j);
             }
         }
     }
@@ -208,55 +215,78 @@ public class GridMap {
         if (iterations != 0) {
 
             // Generates random numbers for a new room
-            int n = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
-            int m = random.nextInt(Constants.LARGEST_ROOM_Y - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
+            int width = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
+            int height = random.nextInt(Math.max(Constants.LARGEST_ROOM_Y, width) - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
+            width = Math.min(width, this.mapXMax - x - 1);
+            height = Math.min(height, this.mapYMax - y - 1);
 
-            createRoom(x, y, n, m);
+            // Reduces room size to accomadate other rooms
+            while (this.getTile(width + x, height + y) == null || this.getTile(width + x, 0) == null || this.getTile(0, height + y) == null) {
+                width -= 1;
+                height -= 1;
+
+                if (width <= 0 || height <= 0) {
+                    break;
+                }
+            }
+
+            if (width > 0 && height > 0) {
+                createRoom(x, y, width, height);
+            }
 
             // Grabs a random starting point from within the room
-            int startingX = random.nextInt((x + n) - x + 1) + x;
-            int startingY = random.nextInt((y + m) - y + 1) + y;
+            int startingX = random.nextInt((x + width) - x + 1) + x;
+            int startingY = random.nextInt((y + height) - y + 1) + y;
 
             int[] direction = {0, 0};
             
             // Determines where to go with the new corridor
             if (random.nextBoolean()) {
-                if (startingX - x > x) {
+                if (startingX < this.mapXMax / 2) {
                     direction[0] = 1;
+                    startingX = x + width;
                 }
                 else {
                     direction[0] = -1;
+                    startingX = x;
                 }
-
-                startingX = x + n;
             }
             else {
-                if (startingY - y > y) {
+                if (startingY < this.mapYMax / 2) {
                     direction[1] = 1;
+                    startingY = y + height;
                 }
                 else {
                     direction[1] = -1;
+                    startingY = y;
                 }
-
-                startingY = y + m;
             }
+
+            x = startingX;
+            y = startingY;
 
             // Creates corridors through the map, stops if it has found empty space
             for (int i = 0; i < Constants.MAX_CORRIDOR_LENGTH; i++) {
 
-                // Breaks if it has found open space
-                if (this.getTile(x, y) == null) {
-                    break;
+                if (!(x <= -1 || x >= this.mapXMax || y <= -1 || y >= this.mapYMax)) {
+                    this.setTile(null, x, y);
+                    x += direction[0];
+                    y += direction[1];
                 }
 
-                this.setTile(null, x, y);
-                x += direction[0];
-                y += direction[1];
+                if (!(x <= -1 || x >= this.mapXMax || y <= -1 || y >= this.mapYMax)) {
+                    // Breaks if it has found open space
+                    if (this.getTile(x, y) == null) {
+                        break;
+                    }
+                }
             }
 
             // Generates a new room if the current position is not empty
-            if (this.getTile(x, y) != null) {
-                generateRooms(x, y, iterations - 1);
+            if (!(x <= -1 || x >= this.mapXMax || y <= -1 || y >= this.mapYMax)) {
+                if (this.getTile(x, y) != null) {
+                    generateRooms(x, y, iterations - 1);
+                }
             }
         }
     }
