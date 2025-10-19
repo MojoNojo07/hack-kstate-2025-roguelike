@@ -34,8 +34,8 @@ public class GridMap {
         String mapUI = "";
 
         // gets the top left corner of the viewport, making sure to clamp it to avoid OOB errors
-        int startX = Math.max(Math.min(Main.player.getX() - Constants.MAP_VIEW_X / 2, mapXMax - Constants.CHUNK_SIZE - 2), 0);
-        int startY = Math.max(Math.min(Main.player.getY() - Constants.MAP_VIEW_Y / 2, mapYMax - Constants.CHUNK_SIZE - 2), 0);
+        int startX = Math.max(Math.min(Main.player.getX() - Constants.MAP_VIEW_X / 2, mapXMax - Constants.MAP_VIEW_X), 0);
+        int startY = Math.max(Math.min(Main.player.getY() - Constants.MAP_VIEW_Y / 2 - 2, mapYMax - Constants.MAP_VIEW_Y), 0);
 
         // for every tile in the map view add it to the UI map
         for (int y = startY; y < Constants.MAP_VIEW_Y + startY; y++) {
