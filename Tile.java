@@ -69,6 +69,14 @@ public class Tile {
     }
 
     /**
+     * Setter method to set the tile's color
+     * @param color the new color
+     */
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    /**
      * Setter method to set the tile's character
      * @param character the new character
      */
