@@ -53,5 +53,7 @@ public final class Constants {
 
     public static final String GOBLIN_COLOR = "\u001B[32m";
 
+    public static final int LOG_DEPTH = 5;
+
 
 }

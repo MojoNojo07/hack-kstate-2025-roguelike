@@ -1,5 +1,5 @@
 public class UserInterface {
-    private static String[] log = new String[5];
+    private static String[] log = new String[Constants.LOG_DEPTH];
 
     /**
      * Updates the screen with new information
@@ -24,5 +24,18 @@ public class UserInterface {
         System.out.flush();
     }  
 
+    /**
+     * Adds a new log to the ui log, flushing out old ones
+     * @param text the new log to... log
+     * @return the flushed value
+     */
+    public static String log(String text) {
+        String flushedValue = log[log.length];
+        for (int i = log.length; i > 0; i--) {
+            log[i] = log[i - 1];
+        }
+        log[0] = text;
+        return flushedValue;
+    }
 
 }
