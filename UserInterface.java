@@ -32,8 +32,8 @@ public class UserInterface {
      * @return the flushed value
      */
     public static String log(String text) {
-        String flushedValue = log[log.length];
-        for (int i = log.length; i > 0; i--) {
+        String flushedValue = log[log.length - 1];
+        for (int i = log.length - 1; i > 0; i--) {
             log[i] = log[i - 1];
         }
         log[0] = text;

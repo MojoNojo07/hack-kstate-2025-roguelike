@@ -69,7 +69,7 @@ public class Tile {
     }
 
     public void slay() {
-        UserInterface.log(this.character + " at " + this.x + ", " + this.y + " was slain!");
+        UserInterface.log(this.character + " was slain!");
         Main.currentFloor.setTile(null, this.x, this.y);
         Main.currentFloor.actors.remove(this.id - 1);
     }
