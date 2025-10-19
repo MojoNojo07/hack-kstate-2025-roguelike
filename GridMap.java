@@ -21,7 +21,7 @@ public class GridMap {
         this.grid = new Tile[m][n][Constants.CHUNK_SIZE][Constants.CHUNK_SIZE];
         this.mapXMax = m * Constants.CHUNK_SIZE;
         this.mapYMax = n * Constants.CHUNK_SIZE;
-        // this.generateMap();
+        this.generateMap();
     }
 
     /**
@@ -148,15 +148,15 @@ public class GridMap {
      * Creates a room.
      * @param x The starting top left x pos
      * @param y The starting top left y pos
-     * @param n The width (inclusive)
-     * @param m The height (inclusive)
+     * @param width The width (inclusive)
+     * @param height The height (inclusive)
      */
-    private void createRoom(int x, int y, int n, int m) {
-        n = Math.min(x + n, this.mapXMax - 2);
-        m = Math.min(y + m, this.mapYMax - 2);
+    private void createRoom(int x, int y, int width, int height) {
+        height = Math.min(x + height, this.mapXMax - 2);
+        width = Math.min(y + width, this.mapYMax - 2);
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 this.setTile(null, i + x, j + y);
             }
         }
@@ -174,14 +174,14 @@ public class GridMap {
         if (iterations != 0) {
 
             // Generates random numbers for a new room
-            int n = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
-            int m = random.nextInt(Constants.LARGEST_ROOM_Y - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
+            int width = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
+            int height = random.nextInt(Constants.LARGEST_ROOM_Y - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
 
-            createRoom(x, y, n, m);
+            createRoom(x, y, width, height);
 
             // Grabs a random starting point from within the room
-            int startingX = random.nextInt((x + n) - x + 1) + x;
-            int startingY = random.nextInt((y + m) - y + 1) + y;
+            int startingX = random.nextInt((x + width) - x + 1) + x;
+            int startingY = random.nextInt((y + height) - y + 1) + y;
 
             int[] direction = {0, 0};
             
@@ -194,7 +194,7 @@ public class GridMap {
                     direction[0] = -1;
                 }
 
-                startingX = x + n;
+                startingX = x + width;
             }
             else {
                 if (startingY - y > y) {
@@ -204,7 +204,7 @@ public class GridMap {
                     direction[1] = -1;
                 }
 
-                startingY = y + m;
+                startingY = y + height;
             }
 
             // Creates corridors through the map, stops if it has found empty space
