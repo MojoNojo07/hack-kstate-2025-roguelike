@@ -85,6 +85,14 @@ public class GridMap {
         return mapUI;
     }
 
+    public int getMapWidth() {
+        return this.mapXMax;
+    }
+
+    public int getMapHeight() {
+        return this.mapYMax;
+    }
+
     /**
      * Returns a tile at the global coords
      * @param x global coord x
