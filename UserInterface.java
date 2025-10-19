@@ -8,9 +8,10 @@ public class UserInterface {
         // ASCII escape code, jumps to the next line
         // bc java can't clear the terminal. for some reason.
         System.out.print("\033[H\033[2J");
-        System.out.println("\n  ===== KILL THE NECROMANCEO =====\n");
+        System.out.println("\n  ===== SLAY THE NECROMANCEO =====\n");
         System.out.print("Coffee: \u001B[37m[\u001B[33m");
         for (int i = 0; i < Main.player.getHp(); i++) {System.out.print("▒");}
+        for (int i = 0; i < Main.player.getMaxHp() - Main.player.getHp(); i++) {System.out.print(" ");}
         System.out.println("\u001B[37m]\u001B[0m");
         System.out.println(Main.currentFloor.getMapUI());
         for (int i = 0; i < log.length; i++) {

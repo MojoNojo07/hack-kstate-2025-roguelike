@@ -45,6 +45,14 @@ public class Tile {
     }
 
     /**
+     * Getter method to get the tile's max hp
+     * @return the tile's max hp
+     */
+    public int getMaxHp() {
+        return this.maxHp;
+    }
+
+    /**
      * Getter method to get the tile's character
      * @return the tile's character
      */
