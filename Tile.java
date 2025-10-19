@@ -45,6 +45,14 @@ public class Tile {
     }
 
     /**
+     * Getter method to get the tile's max hp
+     * @return the tile's max hp
+     */
+    public int getMaxHp() {
+        return this.maxHp;
+    }
+
+    /**
      * Getter method to get the tile's character
      * @return the tile's character
      */
@@ -69,7 +77,7 @@ public class Tile {
     }
 
     public void slay() {
-        System.out.println(this.character + " at " + this.x + ", " + this.y + " was slain!");
+        UserInterface.log(this.character + " was slain!");
         Main.currentFloor.setTile(null, this.x, this.y);
         Main.currentFloor.actors.remove(this.id - 1);
     }

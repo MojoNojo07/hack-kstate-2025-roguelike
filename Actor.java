@@ -24,19 +24,27 @@ public class Actor extends Tile {
         int newX = this.x + x;
         int newY = this.y + y;
         
-        if (Main.currentFloor.getTile(this.x + x, this.y + y) == null) {
-            Main.currentFloor.moveTile(this.x, this.y, newX, newY);
-            this.x = newX;
-            this.y = newY;
+        if (!(newX != -1 && newX != Main.currentFloor.getMapWidth() && newY != -1 && newY != Main.currentFloor.getMapHeight())) {
+            this.slay();
+            UserInterface.updateUserInterface();
+        }
+        else {
+            if (Main.currentFloor.getTile(this.x + x, this.y + y) == null) {
+                Main.currentFloor.moveTile(this.x, this.y, newX, newY);
+                this.x = newX;
+                this.y = newY;
+            }
         }
 
     }
 
     public void attack(int damage, int relX, int relY) {
-        Tile target = Main.currentFloor.getTile(this.x + relX, this.y + relY);
+        if (relX + x != -1 && relX + x != Main.currentFloor.getMapWidth() && relY + y != -1 && relY + y != Main.currentFloor.getMapHeight()) {
+            Tile target = Main.currentFloor.getTile(this.x + relX, this.y + relY);
 
-        if (target != null) {
-            target.damage(damage);
+            if (target != null) {
+                target.damage(damage);
+            }
         }
     }
 }
