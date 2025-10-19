@@ -77,6 +77,31 @@ public class Tile {
     }
 
     /**
+     * Setter method to set the tile's hp up to its max
+     * @param hp the new hp
+     */
+    public void setHp(int hp) {
+        this.hp = Math.max(this.maxHp, hp);
+    }
+
+    /**
+     * Setter method to set the tile's max hp
+     * @param maxHp the new maxHp
+     */
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+        this.hp = this.maxHp;
+    }
+
+    /**
+     * Setter method to set the tile's defense
+     * @param defense the new defense
+     */
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    /**
      * Setter method to set the tile's character
      * @param character the new character
      */
