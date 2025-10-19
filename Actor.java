@@ -38,13 +38,13 @@ public class Actor extends Tile {
 
     }
 
-    public void attack(int relX, int relY) {
+    public void attack(int damage, int relX, int relY) {
         if (relX + x != -1 && relX + x != Main.currentFloor.getMapWidth() && relY + y != -1 && relY + y != Main.currentFloor.getMapHeight()) {
             Tile target = Main.currentFloor.getTile(this.x + relX, this.y + relY);
 
             if (target != null) {
-                target.damage(15);
+                target.damage(damage);
             }
-    }
+        }
     }
 }
