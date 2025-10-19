@@ -68,7 +68,7 @@ public class InputHandler extends JFrame implements KeyListener {
             
         }
 
-        for(int i = 0; i < Main.currentFloor.enemies.size(); i++) {
+        for(int i : Main.currentFloor.enemies.keySet()) {
             Enemy enemy = Main.currentFloor.enemies.get(i);
             if (enemy != null) {
                 System.out.println("resolving " + enemy.getCharacter() + "'s AI at " + enemy.getX() + ", " + enemy.getY());
