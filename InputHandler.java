@@ -14,10 +14,10 @@ public class InputHandler extends JFrame implements KeyListener {
 
     InputHandler(Actor player){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(100, 100);
+        this.setSize(200, 200);
         this.setLayout(null);
         this.setVisible(true);
-        this.setTitle("Kill the NecromanCEO");
+        this.setTitle("Office Goblin");
         this.getContentPane().setBackground(Color.BLACK);
         this.addKeyListener(this);
 
