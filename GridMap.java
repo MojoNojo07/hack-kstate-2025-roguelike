@@ -18,9 +18,9 @@ public class GridMap {
      * @param m the height of the chunks
      */
     public GridMap(int n, int m) {
-        this.grid = new Tile[n][m][Constants.CHUNK_SIZE][Constants.CHUNK_SIZE];
-        this.mapXMax = n * Constants.CHUNK_SIZE;
-        this.mapYMax = m * Constants.CHUNK_SIZE;
+        this.grid = new Tile[m][n][Constants.CHUNK_SIZE][Constants.CHUNK_SIZE];
+        this.mapXMax = m * Constants.CHUNK_SIZE;
+        this.mapYMax = n * Constants.CHUNK_SIZE;
         // this.generateMap();
     }
 
