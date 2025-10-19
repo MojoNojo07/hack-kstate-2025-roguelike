@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ConcurrentModificationException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,7 +25,7 @@ public class InputHandler extends JFrame implements KeyListener {
         this.player = player;
 
         this.board = "";
-        this.log = "";
+        log = "";
     }
 
 
@@ -59,11 +60,34 @@ public class InputHandler extends JFrame implements KeyListener {
         } else if (keyCode == 32) {
             
         }
+        
+        boolean zombieTime = false;
+        int necroX = 0;
+        int necroY = 0;
+        for (int i : Main.currentFloor.enemies.keySet()) {
+            try {
+                Enemy enemy = Main.currentFloor.enemies.get(i);
+                if (enemy instanceof NecromanCEO) {
+                    if (enemy.getTurn() % 6 == 1) {
+                        zombieTime = true;
+                        necroX = enemy.getX();
+                        necroY = enemy.getY();
+                    }
+                    enemy.resolveAI();
+                } else if (enemy != null) {
+                    enemy.resolveAI();
+                }
+            } catch (ConcurrentModificationException m) {
+                UserInterface.log("Several enemies slain at once, crowd left stunned");
+            }
+        }
 
-        for(int i : Main.currentFloor.enemies.keySet()) {
-            Enemy enemy = Main.currentFloor.enemies.get(i);
-            if (enemy != null) {
-                enemy.resolveAI();
+        if(zombieTime && Main.currentFloor.enemies.size() < 20) {
+            if (Main.currentFloor.getTile(necroX, necroY - 3) == null) {
+                    Main.currentFloor.addEnemy(new Enemy('Z', "\u001B[32m", 10, 2), necroX, necroY - 3);
+                    zombieTime = false;
+            } else if (Main.currentFloor.getTile(necroX, necroY + 3) == null) {
+                Main.currentFloor.addEnemy(new Enemy('Z', "\u001B[32m", 10, 2), necroX, necroY + 3);
             }
         }
 

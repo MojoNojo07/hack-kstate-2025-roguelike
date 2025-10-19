@@ -2,8 +2,8 @@ public class Tile {
     protected char character;
     private String color;
     private int maxHp;
-    private int hp;
-    private int defense;
+    protected int hp;
+    protected int defense;
     protected int x;
     protected int y;
     public int id;
