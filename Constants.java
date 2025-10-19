@@ -7,10 +7,10 @@ public final class Constants {
     public static final int MAP_VIEW_Y = 20;
 
     public static class Tiles {
-        public static final int WOOD_WALL_HP = 5;
-        public static final int WOOD_WALL_DEFENSE = 4;
+        public static final int WOOD_WALL_HP = 10;
+        public static final int WOOD_WALL_DEFENSE = 5;
         public static final String WOOD_WALL_COLOR = "\u001B[37m";
-        public static final int CONCRETE_WALL_HP = 5;
+        public static final int CONCRETE_WALL_HP = 10;
         public static final int CONCRETE_WALL_DEFENSE = 9;
         public static final String CONCRETE_WALL_COLOR = "\u001B[35m";
         public static final int WINDOW_WALL_HP = 2;
@@ -58,6 +58,7 @@ public final class Constants {
     public static class Player {
         public static final int STARTING_DEFENSE = 2;
         public static final int STARTING_MAX_HP = 10;
+        public static final int STARTING_DAMAGE = 10;
     }
 
 

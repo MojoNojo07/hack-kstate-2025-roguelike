@@ -43,13 +43,13 @@ public class InputHandler extends JFrame implements KeyListener {
             } else if (keyCode == Constants.KeyBinds.MOVE_LEFT) {
                 player.move(-1, 0);
             } else if (keyCode == Constants.KeyBinds.ATK_UP) {
-                player.attack(10, 0, -1);
+                player.attack(Main.playerDamage, 0, -1);
             } else if (keyCode == Constants.KeyBinds.ATK_RIGHT) {
-                player.attack(10, 1, 0);
+                player.attack(Main.playerDamage, 1, 0);
             } else if (keyCode == Constants.KeyBinds.ATK_DOWN) {
-                player.attack(10, 0, 1);
+                player.attack(Main.playerDamage, 0, 1);
             } else if (keyCode == Constants.KeyBinds.ATK_LEFT) {
-                player.attack(10, -1, 0);
+                player.attack(Main.playerDamage, -1, 0);
         }
         // summon an office skeleton by pressing L, for testing
         } else if (keyCode == 76){

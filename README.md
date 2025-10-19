@@ -23,7 +23,7 @@ Colored squares represent walls.
 - White walls are **wood**, which are fairly flimsy. 
 - Magenta walls are **concrete**, which can take quite a few hits.
 
-Yellow loot boxes are around, and can provide a quick heal or a provide a permanent stat up.
+Yellow desks are around, and can provide a quick heal or a provide a permanent stat up.
 
 Letters that aren't G represent enemies. They will slowly lurch toward the goblin, and will attack if adjacent. All enemies flash white just before taking an action.
 
