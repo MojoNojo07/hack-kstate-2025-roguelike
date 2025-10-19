@@ -310,6 +310,11 @@ public class GridMap {
                         this.addEnemy(new Enemy('O', "\u001B[34m", 20, 5), i, j);
                     }
                 }
+                if (this.getTile(i, j) == null) {
+                    if (random.nextInt(200 - 1 + 1) + 1 == 5) {
+                        this.setTile(new LootBox('B', "\u001B[31m\u001B[43m", 1, 1, i, j), i, j);
+                    }
+                }
             }
         }
 

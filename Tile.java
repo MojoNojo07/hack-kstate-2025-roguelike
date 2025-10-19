@@ -89,7 +89,7 @@ public class Tile {
      * @param hp the new hp
      */
     public void setHp(int hp) {
-        this.hp = Math.max(this.maxHp, hp);
+        this.hp = Math.min(this.maxHp, hp);
     }
 
     /**
