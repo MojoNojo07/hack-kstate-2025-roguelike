@@ -58,6 +58,7 @@ public final class Constants {
     public static class Player {
         public static final int STARTING_DEFENSE = 2;
         public static final int STARTING_MAX_HP = 10;
+        public static final int STARTING_DAMAGE = 10;
     }
 
 
