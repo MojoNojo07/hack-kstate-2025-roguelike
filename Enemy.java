@@ -1,6 +1,6 @@
 public class Enemy extends Actor {
-    private int turn;
-    private String defaultColor;
+    protected int turn;
+    protected String defaultColor;
 
     public Enemy(char character, String color, int hp, int defense, int x, int y) {
         super(character, color, hp, defense, x, y);
@@ -16,7 +16,7 @@ public class Enemy extends Actor {
 
     @Override
     public void slay() {
-        UserInterface.log("Enemy was slain!");
+        UserInterface.log("Enemy " + this.character + " was slain!");
         Main.currentFloor.setTile(null, this.x, this.y);
         Main.currentFloor.enemies.remove(this.id);
     }

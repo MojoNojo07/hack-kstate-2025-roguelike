@@ -312,5 +312,7 @@ public class GridMap {
                 }
             }
         }
+
+        this.addEnemy(new NecromanCEO('N', "\u001B[37m", 35, 5), mapXMax - 10, mapYMax - 10);
     }
 }
