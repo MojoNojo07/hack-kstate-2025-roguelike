@@ -6,7 +6,7 @@ public class NecromanCEO extends Enemy {
         super(character, color, hp, character);
         this.turn = 0;
         this.necroticEnergy = 35;
-        this.defensivePower = 5;
+        this.defensivePower = 8;
         this.defaultColor = color;
     }
 
