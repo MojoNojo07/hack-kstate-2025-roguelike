@@ -111,7 +111,7 @@ public class GridMap {
         // Sets all tiles to concrete walls.
         for (int i = 0; i < this.mapXMax; i++) {
             for (int j = 0; j < this.mapYMax; j++) {
-                this.setTile(new Wall('█', "grey", Constants.Tiles.CONCRETE_WALL_HP, Constants.Tiles.CONCRETE_WALL_DEFENSE, '█', i, j), i, j);
+                this.setTile(new Wall('█', Constants.Tiles.CONCRETE_WALL_COLOR, Constants.Tiles.CONCRETE_WALL_HP, Constants.Tiles.CONCRETE_WALL_DEFENSE, '█', i, j), i, j);
             }
         }
 
@@ -124,23 +124,27 @@ public class GridMap {
         for (int i = 0; i < this.mapXMax; i++) {
             for (int j = 0; j < this.mapYMax; j++) {
 
-                // Finds the total of walls nearby in a 3x3 grid.
-                int total = 0;
-                for (int k = i - 1; k <= i + 1; k++) {
-                    for (int l = j - 1; l <= j + 1; l++) {
-                        if (k != -1 && k != this.mapXMax && l != -1 && l != this.mapYMax) {
-                            if (this.getTile(k, l) instanceof Wall && (i != 0 || j != 0)) {
-                                total++;
+
+                if (this.getTile(i, j) != null) {
+
+                    // Finds the total of walls nearby in a 3x3 grid.
+                    int total = 0;
+                    for (int k = i - 1; k <= i + 1; k++) {
+                        for (int l = j - 1; l <= j + 1; l++) {
+                            if (k != -1 && k != this.mapXMax && l != -1 && l != this.mapYMax) {
+                                if (this.getTile(k, l) instanceof Wall && (i != 0 || j != 0)) {
+                                    total++;
+                                }
                             }
                         }
                     }
-                }
 
-                if (total <= 3) {
-                    this.setTile(new Wall('░', "light blue", Constants.Tiles.WINDOW_WALL_HP, Constants.Tiles.WINDOW_WALL_DEFENSE, '░', i, j), i, j);
-                }
-                else if (total <= 7) {
-                    this.setTile(new Wall('█', "beige", Constants.Tiles.WOOD_WALL_HP, Constants.Tiles.WOOD_WALL_DEFENSE, '█', i, j), i, j);
+                    if (total <= 3) {
+                        this.setTile(new Wall('░', Constants.Tiles.WINDOW_WALL_COLOR, Constants.Tiles.WINDOW_WALL_HP, Constants.Tiles.WINDOW_WALL_DEFENSE, '░', i, j), i, j);
+                    }
+                    else if (total <= 7) {
+                        this.setTile(new Wall('█', Constants.Tiles.WOOD_WALL_COLOR, Constants.Tiles.WOOD_WALL_HP, Constants.Tiles.WOOD_WALL_DEFENSE, '█', i, j), i, j);
+                    }
                 }
             }
         }
@@ -177,7 +181,8 @@ public class GridMap {
 
             // Generates random numbers for a new room
             int width = random.nextInt(Constants.LARGEST_ROOM_X - Constants.SMALLEST_ROOM_X + 1) + Constants.SMALLEST_ROOM_X;
-            int height = random.nextInt(Constants.LARGEST_ROOM_Y - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
+            int height = random.nextInt(Math.max(Constants.LARGEST_ROOM_Y, width) - Constants.SMALLEST_ROOM_Y + 1) + Constants.SMALLEST_ROOM_Y;
+            System.out.println("width: " + width + ", height: " + height);
 
             createRoom(x, y, width, height);
 
