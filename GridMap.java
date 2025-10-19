@@ -1,4 +1,5 @@
 import java.lang.Math;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -10,6 +11,8 @@ public class GridMap {
     private Tile[][][][] grid;
     private int mapXMax;
     private int mapYMax;
+    public HashMap<Integer, Actor> actors; 
+    public HashMap<Integer, Enemy> enemies; 
     private Random random = new Random();
 
     /**
@@ -21,7 +24,33 @@ public class GridMap {
         this.grid = new Tile[n][m][Constants.CHUNK_SIZE][Constants.CHUNK_SIZE];
         this.mapXMax = n * Constants.CHUNK_SIZE;
         this.mapYMax = m * Constants.CHUNK_SIZE;
+        this.actors = new HashMap<Integer, Actor>();
+        this.enemies = new HashMap<Integer, Enemy>();
         // this.generateMap();
+    }
+
+    public void addActor(Actor actor, int x, int y) {
+        if(Main.currentFloor.getTile(x, y) == null) {
+            int id = actors.size();
+            actor.id = id;
+            this.actors.put(id, actor);
+            setTile(actor, x, y);
+            System.out.println("Created actor at " + x + ", " + y + " with ID " + id);
+        } else {
+            System.out.println("Cannot create actor at " + x + ", " + y + "; tile already populated");
+        }
+    }
+
+    public void addEnemy(Enemy enemy, int x, int y) {
+        if(Main.currentFloor.getTile(x, y) == null) {
+            int id = enemies.size();
+            enemy.id = id;
+            this.enemies.put(id, enemy);
+            setTile(enemy, x, y);
+            System.out.println("Created enemy at " + x + ", " + y + " with ID " + id);
+        } else {
+            System.out.println("Cannot create enemy at " + x + ", " + y + "; tile already populated");
+        }
     }
 
     /**
@@ -62,7 +91,6 @@ public class GridMap {
      * @return the tile at the given location
      */
     public Tile getTile(int x, int y) {
-        
         int[] coordinates = this.getTileLocation(x, y);
         return this.grid[coordinates[0]][coordinates[1]][coordinates[2]][coordinates[3]];
     }

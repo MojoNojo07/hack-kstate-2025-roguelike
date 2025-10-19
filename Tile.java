@@ -1,11 +1,12 @@
 public class Tile {
-    private char character;
+    protected char character;
     private String color;
     private int maxHp;
     private int hp;
     private int defense;
     protected int x;
     protected int y;
+    public int id;
 
     /**
      * Represents a tile on the map
@@ -70,6 +71,7 @@ public class Tile {
     public void slay() {
         System.out.println(this.character + " at " + this.x + ", " + this.y + " was slain!");
         Main.currentFloor.setTile(null, this.x, this.y);
+        Main.currentFloor.actors.remove(this.id - 1);
     }
 
     /**

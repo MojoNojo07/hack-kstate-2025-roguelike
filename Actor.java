@@ -21,10 +21,13 @@ public class Actor extends Tile {
      * @param y how much to move in the y direction
      */
     public void move(int x, int y) {
+        int newX = this.x + x;
+        int newY = this.y + y;
+        
         if (Main.currentFloor.getTile(this.x + x, this.y + y) == null) {
-            Main.currentFloor.moveTile(this.x, this.y, this.x + x, this.y + y);
-            this.x += x;
-            this.y += y;
+            Main.currentFloor.moveTile(this.x, this.y, newX, newY);
+            this.x = newX;
+            this.y = newY;
         }
 
     }

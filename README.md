@@ -8,7 +8,7 @@ This is a project made for Hack K-State 2025. It's a text-based roguelike about 
 ✅ Moving a character around on-screen<br/>
 ✅ Collision<br/>
 🔲 Connected rooms<br/>
-🔲 NPC enemies<br/>
+✅ NPC enemies<br/>
 🔲 Simple weapons<br/>
 🔲 Simple items<br/>
 
