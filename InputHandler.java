@@ -32,24 +32,25 @@ public class InputHandler extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
-        System.out.println("keycode " + keyCode);
-        if (keyCode == Constants.KeyBinds.MOVE_UP) {
-            player.move(0, -1);
-        } else if (keyCode == Constants.KeyBinds.MOVE_RIGHT) {
-            player.move(1, 0);
-        } else if (keyCode == Constants.KeyBinds.MOVE_DOWN) {
-            player.move(0, 1);
-        } else if (keyCode == Constants.KeyBinds.MOVE_LEFT) {
-            player.move(-1, 0);
-        } else if (keyCode == Constants.KeyBinds.ATK_UP) {
-            player.attack(10, 0, -1);
-        } else if (keyCode == Constants.KeyBinds.ATK_RIGHT) {
-            player.attack(10, 1, 0);
-        } else if (keyCode == Constants.KeyBinds.ATK_DOWN) {
-            player.attack(10, 0, 1);
-        } else if (keyCode == Constants.KeyBinds.ATK_LEFT) {
-            player.attack(10, -1, 0);
-
+        
+        if (Main.isPlayerAlive) {
+            if (keyCode == Constants.KeyBinds.MOVE_UP) {
+                player.move(0, -1);
+            } else if (keyCode == Constants.KeyBinds.MOVE_RIGHT) {
+                player.move(1, 0);
+            } else if (keyCode == Constants.KeyBinds.MOVE_DOWN) {
+                player.move(0, 1);
+            } else if (keyCode == Constants.KeyBinds.MOVE_LEFT) {
+                player.move(-1, 0);
+            } else if (keyCode == Constants.KeyBinds.ATK_UP) {
+                player.attack(10, 0, -1);
+            } else if (keyCode == Constants.KeyBinds.ATK_RIGHT) {
+                player.attack(10, 1, 0);
+            } else if (keyCode == Constants.KeyBinds.ATK_DOWN) {
+                player.attack(10, 0, 1);
+            } else if (keyCode == Constants.KeyBinds.ATK_LEFT) {
+                player.attack(10, -1, 0);
+        }
         // summon an office skeleton by pressing L, for testing
         } else if (keyCode == 76){
             Main.currentFloor.addEnemy(new Enemy('O', "\u001B[34m", 20, 5), player.getX() + 1, player.getY());
@@ -68,6 +69,9 @@ public class InputHandler extends JFrame implements KeyListener {
         }
 
         UserInterface.updateUserInterface();
+        if (Main.player.getHp() < 0) {
+            Main.isPlayerAlive = false;
+        }
     }
 
     @Override
