@@ -7,7 +7,7 @@ class Main {
         currentFloor.addActor(player, 2, 2);
         
         new InputHandler(player);
-        currentFloor.populateEnemies();
+        currentFloor.populateMap();
         UserInterface.updateUserInterface();
     }
 }

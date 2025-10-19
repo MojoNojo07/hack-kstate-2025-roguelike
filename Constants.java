@@ -7,7 +7,7 @@ public final class Constants {
     public static final int MAP_VIEW_Y = 20;
 
     public static class Tiles {
-        public static final int WOOD_WALL_HP = 5;
+        public static final int WOOD_WALL_HP = 8;
         public static final int WOOD_WALL_DEFENSE = 4;
         public static final String WOOD_WALL_COLOR = "\u001B[37m";
         public static final int CONCRETE_WALL_HP = 5;
