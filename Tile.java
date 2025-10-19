@@ -77,6 +77,7 @@ public class Tile {
     }
 
     public void slay() {
+        this.hp = 0;
         UserInterface.log(this.character + " was slain!");
         Main.currentFloor.setTile(null, this.x, this.y);
         Main.currentFloor.actors.remove(this.id - 1);

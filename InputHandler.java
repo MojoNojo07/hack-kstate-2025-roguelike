@@ -69,7 +69,7 @@ public class InputHandler extends JFrame implements KeyListener {
         }
 
         UserInterface.updateUserInterface();
-        if (Main.player.getHp() < 0) {
+        if (Main.player.getHp() <= 0) {
             Main.isPlayerAlive = false;
         }
     }
