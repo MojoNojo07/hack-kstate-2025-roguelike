@@ -20,17 +20,26 @@ public class Enemy extends Actor {
         int diffX = Math.abs(this.x - player.getX());
         int diffY = Math.abs(this.y - player.getY());
 
-        if (diffX > diffY) {
-            if (this.x < player.getX()) {
-            this.move(1, 0);
-            } else if (this.x > player.getX()) {
-                this.move(-1, 0);
-            }
+        if (diffX + diffY < 2) {
+            attack(1, 0);
+            attack(-1, 0);
+            attack(0, 1);
+            attack(0, -1);
+
+            
         } else {
-            if (this.y < player.getY()) {
-                this.move(0, 1);
-            } else if (this.y > player.getY()) {
-                this.move(0, -1);
+            if (diffX > diffY) {
+                if (this.x < player.getX()) {
+                this.move(1, 0);
+                } else if (this.x > player.getX()) {
+                    this.move(-1, 0);
+                }
+            } else {
+                if (this.y < player.getY()) {
+                    this.move(0, 1);
+                } else if (this.y > player.getY()) {
+                    this.move(0, -1);
+                }
             }
         }
     }
