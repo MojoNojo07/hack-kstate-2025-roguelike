@@ -15,7 +15,11 @@ public class UserInterface {
         System.out.println("\u001B[37m]\u001B[0m");
         System.out.println(Main.currentFloor.getMapUI());
         for (int i = 0; i < log.length; i++) {
-            if (log[i] != null) {System.out.println(log[i]);}
+            if (log[i] == null) {
+                System.out.println("-------------");
+            } else {
+                System.out.println(log[i]);
+            }
         }
     }
 
