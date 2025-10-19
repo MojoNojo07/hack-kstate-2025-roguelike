@@ -16,7 +16,7 @@ public class Enemy extends Actor {
 
     @Override
     public void slay() {
-        System.out.println("Enemy " + this.id + " at " + this.x + ", " + this.y + " was slain!");
+        System.out.println("Enemy was slain!");
         Main.currentFloor.setTile(null, this.x, this.y);
         Main.currentFloor.enemies.remove(this.id);
     }

@@ -9,5 +9,6 @@ class Main {
         
         new InputHandler(player);
         currentFloor.populateEnemies();
+        UserInterface.updateUserInterface();
     }
 }
