@@ -2,6 +2,7 @@
 class Main {
     public static final GridMap currentFloor = new GridMap(2, 3);
     public static Actor player = new Actor('G', Constants.GOBLIN_COLOR, 10, 2);
+    public static int turn = 0;
 
     public static void main(String args[]) {
         currentFloor.addActor(player, 3, 4);
