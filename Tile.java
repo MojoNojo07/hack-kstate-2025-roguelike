@@ -53,6 +53,14 @@ public class Tile {
     }
 
     /**
+     * Getter method to get the tile's defense
+     * @return the tile's defense
+     */
+    public int getDefense() {
+        return this.defense;
+    }
+
+    /**
      * Getter method to get the tile's character
      * @return the tile's character
      */
