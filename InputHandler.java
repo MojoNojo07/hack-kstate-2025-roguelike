@@ -25,18 +25,9 @@ public class InputHandler extends JFrame implements KeyListener {
 
         this.board = "";
         this.log = "";
-        updateBoard();
     }
 
-    public void clearScreen() {  
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }  
 
-
-    public void updateBoard() {
-        board = Main.currentFloor.getMapUI();
-    }
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -72,15 +63,7 @@ public class InputHandler extends JFrame implements KeyListener {
             }
         }
 
-        // ASCII escape code, jumps to the next line
-        // bc java can't clear the terminal. for some reason.
-        System.out.print("\033[H\033[2J");
-        updateBoard();
-        System.out.println("\n===== KILL THE NECROMANCEO =====\n");
-        System.out.println("Goblin HP: " + player.getHp());
-        System.out.println(board);
-        log = ("" + player.getX() + ", " + player.getY() + "\n");
-        System.out.println(log);
+        UserInterface.updateUserInterface();
     }
 
     @Override
