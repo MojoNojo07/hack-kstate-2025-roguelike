@@ -11,7 +11,6 @@ public class InputHandler extends JFrame implements KeyListener {
     public String board;
     public Actor player;
     public static String log;
-    private InputHandler inputHandler;
 
     InputHandler(Actor player){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,7 +61,15 @@ public class InputHandler extends JFrame implements KeyListener {
 
         // summon an office skeleton by pressing L, for testing
         } else if (keyCode == 76){
-            Main.currentFloor.setTile(new Actor('O', "\u001B[34m", 20, 5), player.getX() + 1, player.getY());
+            Main.currentFloor.addEnemy(new Enemy('O', "\u001B[34m", 20, 5), player.getX() + 1, player.getY());
+
+        // resolve enemy AI when the spacebar is pressed
+        } else if (keyCode == 32) {
+            for(int i = 0; i < Main.currentFloor.enemies.size(); i++) {
+                Enemy enemy = Main.currentFloor.enemies.get(i);
+                System.out.println("resolving " + enemy.getCharacter() + "'s AI at " + enemy.getX() + ", " + enemy.getY());
+                enemy.resolveAI();
+            }
         }
 
         // ASCII escape code, jumps to the next line
