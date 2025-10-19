@@ -1,14 +1,17 @@
 public class Enemy extends Actor {
     private int turn;
+    private String defaultColor;
 
     public Enemy(char character, String color, int hp, int defense, int x, int y) {
         super(character, color, hp, defense, x, y);
         this.turn = 0;
+        this.defaultColor = color;
     }
 
     public Enemy(char character, String color, int hp, int defense) {
         super(character, color, hp, defense, -1, -1);
         this.id = Main.currentFloor.enemies.size();
+        this.defaultColor = color;
     }
 
     @Override
@@ -26,6 +29,8 @@ public class Enemy extends Actor {
         this.turn++;
 
         if (this.turn % 3 == 0) {
+            this.setColor(this.defaultColor);
+
             if (diffX + diffY < 2) {
                 attack(5, 1, 0);
                 attack(5, -1, 0);
@@ -48,6 +53,10 @@ public class Enemy extends Actor {
                     }
                 }
             }
+        }
+
+        if (this.turn % 3 == 2) {
+            this.setColor("\u001B[47m" + this.defaultColor);
         }
     }
 }
