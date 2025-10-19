@@ -14,6 +14,10 @@ public class Enemy extends Actor {
         this.defaultColor = color;
     }
 
+    public int getTurn() {
+        return this.turn;
+    }
+
     @Override
     public void slay() {
         UserInterface.log("Enemy " + this.character + " was slain!");
