@@ -32,11 +32,11 @@ public class Actor extends Tile {
 
     }
 
-    public void attack(int relX, int relY) {
+    public void attack(int damage, int relX, int relY) {
         Tile target = Main.currentFloor.getTile(this.x + relX, this.y + relY);
 
         if (target != null) {
-            target.damage(15);
+            target.damage(damage);
         }
     }
 }
