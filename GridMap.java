@@ -128,8 +128,10 @@ public class GridMap {
                 int total = 0;
                 for (int k = i - 1; k <= i + 1; k++) {
                     for (int l = j - 1; l <= j + 1; l++) {
-                        if (this.getTile(k, l) instanceof Wall && (i != 0 || j != 0)) {
-                            total++;
+                        if (k != -1 && k != this.mapXMax && l != -1 && l != this.mapYMax) {
+                            if (this.getTile(k, l) instanceof Wall && (i != 0 || j != 0)) {
+                                total++;
+                            }
                         }
                     }
                 }
@@ -152,12 +154,12 @@ public class GridMap {
      * @param height The height (inclusive)
      */
     private void createRoom(int x, int y, int width, int height) {
-        height = Math.min(x + height, this.mapXMax - 2);
-        width = Math.min(y + width, this.mapYMax - 2);
+        width = Math.min(x + width, this.mapXMax - 2);
+        height = Math.min(y + height, this.mapYMax - 2);
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                this.setTile(null, i + x, j + y);
+        for (int i = x; i < width; i++) {
+            for (int j = y; j < height; j++) {
+                this.setTile(null, i, j);
             }
         }
     }
